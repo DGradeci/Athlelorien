@@ -17,6 +17,7 @@ env/
 *.conda/
 *.virtualenv
 *.idea/
+data_discovery/scratch.ipynb
 
 # --- Jupyter ---
 .ipynb_checkpoints/
