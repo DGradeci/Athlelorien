@@ -2,10 +2,11 @@
 Utility functions for AWS S3 data access.
 """
 
-import boto3
-import s3fs
-import pandas as pd
 import os
+
+import boto3
+import pandas as pd
+import s3fs
 from dotenv import load_dotenv
 
 # Load environment variables from .env if available
