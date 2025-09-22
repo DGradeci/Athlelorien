@@ -12,6 +12,7 @@ build/
 
 # --- sandbox-----
 .sandbox/
+sandbox/
 
 # --- Virtual Environments ---
 .venv/
