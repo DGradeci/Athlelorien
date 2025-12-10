@@ -61,19 +61,27 @@ def build_active_match_paths(
     df = df_labeled.copy()
 
     # -----------------------------
-    # FIX: robust & safe parsing
+    # 1) Robust time-of-day parsing
     # -----------------------------
     t = pd.to_datetime(df["time"].astype(str), errors="coerce")
     df["time_td"] = pd.to_timedelta(t.dt.strftime("%H:%M:%S.%f"), errors="coerce")
 
+    # -----------------------------
+    # 2) ALIGN GPS CLOCK TO KICKOFF
+    # -----------------------------
+    row = matches.iloc[game_number - 1]
+    kickoff_td = pd.to_timedelta(_parse_time_of_day(row["time"]))
+
+    gps_start = df["time_td"].min()
+    offset = kickoff_td - gps_start
+
+    df["time_td"] = df["time_td"] + offset
     time_col = "time_td"
     t = df[time_col]
 
-    # kickoff
-    row = matches.iloc[game_number - 1]
-    kickoff_td = _parse_time_of_day(row["time"])
-
-    # half windows
+    # -----------------------------
+    # 3) Half windows (after alignment)
+    # -----------------------------
     first_start = kickoff_td
     first_end = kickoff_td + pd.Timedelta(minutes=45)
     second_start = kickoff_td + pd.Timedelta(minutes=60)
@@ -85,29 +93,32 @@ def build_active_match_paths(
 
     df = df[mask_halves].copy()
     if df.empty:
-        raise ValueError("No data within match halves.")
+        raise ValueError("No data within match halves (after time alignment).")
 
     df["half"] = np.where(
-        mask_first.loc[df.index],
-        1,
-        np.where(mask_second.loc[df.index], 2, np.nan),
+        mask_first.loc[df.index], 1, np.where(mask_second.loc[df.index], 2, np.nan)
     )
 
+    # -----------------------------
+    # 4) Keep only ACTIVE rows
+    # -----------------------------
     df = df[df[status_col] == "active"].copy()
     if df.empty:
         raise ValueError("No active rows within match halves.")
 
+    # -----------------------------
+    # 5) Split continuous paths
+    # -----------------------------
     df = df.sort_values([player_col, time_col])
     df["path_id"] = -1
     global_path_counter = 0
 
     for pid, g in df.groupby(player_col, sort=False):
         times = g[time_col].values.astype("timedelta64[ns]")
-        n = len(g)
-        path_ids = np.full(n, -1, dtype=int)
+        path_ids = np.full(len(g), -1, dtype=int)
 
         prev_idx = None
-        for k in range(n):
+        for k in range(len(g)):
             if prev_idx is None:
                 global_path_counter += 1
                 path_ids[k] = global_path_counter
@@ -122,6 +133,9 @@ def build_active_match_paths(
 
         df.loc[g.index, "path_id"] = path_ids
 
+    # -----------------------------
+    # 6) Keep only long enough paths
+    # -----------------------------
     durations = (
         df.groupby("path_id")[time_col]
         .agg(["min", "max"])
