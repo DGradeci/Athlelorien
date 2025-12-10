@@ -1,0 +1,66 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# --- sandbox-----
+.sandbox/
+sandbox/
+
+# --- Virtual Environments ---
+.venv/
+venv/
+env/
+*.conda/
+*.virtualenv
+*.idea/
+data_discovery/scratch.ipynb
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints
+
+# --- VS Code / Editors ---
+.vscode/
+*.swp
+*.swo
+
+# --- Logs / Temp ---
+*.log
+*.tmp
+*.out
+*.DS_Store
+Thumbs.db
+
+# --- AWS / Secrets ---
+.env
+*.pem
+*.key
+.aws/               # Local AWS config dir (don't share creds)
+
+# --- Data (optional, if you cache locally) ---
+data/
+*.parquet
+*.csv
+*.h5
+*.db
+
+# --- MLflow / Tracking ---
+mlruns/
+mlartifacts/
+
+# --- Tests ---
+.coverage
+.pytest_cache/
+
+# --- MyPy / Ruff / Black ---
+.mypy_cache/
+.ruff_cache/
+"sandbox/" 
