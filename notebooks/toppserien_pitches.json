@@ -1,0 +1,301 @@
+{
+  "Arna Idrettspark": {
+    "way_id": 107862363,
+    "tags": {
+      "leisure": "pitch",
+      "name": "Arna idrettspark",
+      "owner": "Bergen kommune",
+      "ref:anlegg": "52687",
+      "sport": "soccer",
+      "surface": "artificial_turf"
+    },
+    "coords": [
+      [
+        60.426048,
+        5.4708468
+      ],
+      [
+        60.4259431,
+        5.4727346
+      ],
+      [
+        60.4253396,
+        5.4725969
+      ],
+      [
+        60.4254445,
+        5.4707091
+      ]
+    ]
+  },
+  "Avaldsnes Idrettssenter": {
+    "way_id": 104739065,
+    "tags": {
+      "leisure": "pitch",
+      "name": "Avaldsnes idrettssenter gressbane",
+      "owner": "Avaldsnes Allianseidrettslag",
+      "ref:anlegg": "10282",
+      "sport": "soccer",
+      "surface": "grass"
+    },
+    "coords": [
+      [
+        59.3575208,
+        5.2636644
+      ],
+      [
+        59.357132,
+        5.2647375
+      ],
+      [
+        59.3563006,
+        5.263578
+      ],
+      [
+        59.3566894,
+        5.2625049
+      ]
+    ]
+  },
+  "Klepp Stadion": {
+    "way_id": 298834786,
+    "tags": {
+      "leisure": "pitch",
+      "name": "Klepp stadion",
+      "owner": "Klepp idrettslag",
+      "ref:anlegg": "7874",
+      "sport": "soccer",
+      "surface": "artificial_turf"
+    },
+    "coords": [
+      [
+        58.7759058,
+        5.6323339
+      ],
+      [
+        58.7748995,
+        5.6327684
+      ],
+      [
+        58.775048,
+        5.6340477
+      ],
+      [
+        58.7760542,
+        5.6336132
+      ]
+    ]
+  },
+  "Sofiemyr stadion": {
+    "way_id": 1267363929,
+    "tags": {
+      "leisure": "pitch",
+      "lit": "yes",
+      "name": "Sofiemyr stadion",
+      "owner": "Nordre Follo kommune",
+      "ref:anlegg": "1699",
+      "sport": "soccer",
+      "surface": "grass"
+    },
+    "coords": [
+      [
+        59.8000401,
+        10.8182692
+      ],
+      [
+        59.8000835,
+        10.8193988
+      ],
+      [
+        59.8010301,
+        10.819255
+      ],
+      [
+        59.8009867,
+        10.8181255
+      ]
+    ]
+  },
+  "LSK-hallen": {
+    "way_id": 136109394,
+    "tags": {
+      "leisure": "pitch",
+      "sport": "soccer",
+      "surface": "compacted"
+    },
+    "coords": [
+      [
+        59.9630215,
+        11.070103
+      ],
+      [
+        59.9629954,
+        11.0682547
+      ],
+      [
+        59.9624397,
+        11.068286
+      ],
+      [
+        59.9624657,
+        11.0701342
+      ]
+    ]
+  },
+  "Kringsjå kunstgress": {
+    "way_id": 4979636,
+    "tags": {
+      "leisure": "pitch",
+      "lit": "yes",
+      "name": "Kringsjå kunstgressbane 1",
+      "owner": "Oslo kommune Bymiljøetaten",
+      "ref:anlegg": "454",
+      "sport": "soccer",
+      "surface": "artificial_turf"
+    },
+    "coords": [
+      [
+        59.9649297,
+        10.7276846
+      ],
+      [
+        59.9649164,
+        10.7263749
+      ],
+      [
+        59.96591,
+        10.7263349
+      ],
+      [
+        59.9659232,
+        10.7276445
+      ]
+    ]
+  },
+  "Røa kunstgress": {
+    "way_id": 1267860135,
+    "tags": {
+      "leisure": "pitch",
+      "name": "Røa kunstgressbane 1",
+      "owner": "Oslo kommune Bymiljøetaten",
+      "ref:anlegg": "6290",
+      "sport": "soccer",
+      "surface": "artificial_turf"
+    },
+    "coords": [
+      [
+        59.9423436,
+        10.634603
+      ],
+      [
+        59.941427,
+        10.6340975
+      ],
+      [
+        59.9412643,
+        10.6352729
+      ],
+      [
+        59.942181,
+        10.6357784
+      ]
+    ]
+  },
+  "Koteng Arena": {
+    "way_id": 437181237,
+    "tags": {
+      "leisure": "pitch",
+      "name": "Koteng Arena",
+      "old_name": "Ørn Arena",
+      "owner": "Rosenborg Ballklub",
+      "ref:anlegg": "63835",
+      "sport": "soccer",
+      "surface": "artificial_turf"
+    },
+    "coords": [
+      [
+        63.4456355,
+        10.4514949
+      ],
+      [
+        63.4450733,
+        10.4531759
+      ],
+      [
+        63.4445853,
+        10.4523627
+      ],
+      [
+        63.4451457,
+        10.450683
+      ]
+    ]
+  },
+  "Stemmemyren": {
+    "way_id": 340146953,
+    "tags": {
+      "leisure": "pitch",
+      "lit": "yes",
+      "name": "Stemmemyren idrettsanlegg",
+      "owner": "Bergen kommune",
+      "ref:anlegg": "35547",
+      "sport": "soccer",
+      "surface": "artificial_turf"
+    },
+    "coords": [
+      [
+        60.4260333,
+        5.3044219
+      ],
+      [
+        60.4252003,
+        5.3054049
+      ],
+      [
+        60.425507,
+        5.3064717
+      ],
+      [
+        60.42634,
+        5.3054887
+      ]
+    ]
+  },
+  "Intility Arena": {
+    "way_id": 623543184,
+    "tags": {
+      "leisure": "pitch",
+      "lit": "yes",
+      "name": "Intility Arena",
+      "ref:anlegg": "31722",
+      "sport": "soccer",
+      "surface": "artificial_turf"
+    },
+    "coords": [
+      [
+        59.9175258,
+        10.8056635
+      ],
+      [
+        59.9184634,
+        10.8065585
+      ],
+      [
+        59.9181701,
+        10.8077813
+      ],
+      [
+        59.9181633,
+        10.8077748
+      ],
+      [
+        59.9172395,
+        10.806893
+      ],
+      [
+        59.9172285,
+        10.8069024
+      ]
+    ]
+  }
+}

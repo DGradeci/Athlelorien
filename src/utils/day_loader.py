@@ -5,7 +5,7 @@ Utilities to load and preprocess one day's worth of player data from S3.
 import pandas as pd
 import s3fs
 from typing import List
-from src.utils.player_utils import PlayerNameMapper
+from utils.player_utils import PlayerNameMapper
 
 
 class DayDataLoader:
