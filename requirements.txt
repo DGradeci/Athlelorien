@@ -4,6 +4,7 @@ s3fs
 pandas
 pyarrow
 python-dotenv
+openpyxl
 
 # --- Math / Stats / Distributions ---
 numpy
