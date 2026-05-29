@@ -4,6 +4,7 @@ Utilities for mapping player IDs to readable names.
 
 import json
 import os
+import re
 from typing import Dict, List
 
 import pandas as pd
@@ -27,24 +28,56 @@ class PlayerNameMapper:
         self.map_path = map_path
         self.name_map: Dict[str, str] = {}
         self.candidate_names = candidate_names or [
-            "Alice",
-            "Beth",
-            "Chloe",
-            "Diana",
-            "Ella",
-            "Fiona",
-            "Grace",
-            "Hannah",
-            "Isla",
-            "Jasmine",
-            "Katie",
-            "Laura",
-            "Megan",
-            "Nina",
-            "Olivia",
-            "Paige",
-            "Rachel",
-            "Sophie",
+            "Abigail",
+            "Ada",
+            "Amber",
+            "Amelia",
+            "Annie",
+            "April",
+            "Ariana",
+            "Astrid",
+            "Audrey",
+            "Autumn",
+            "Beatrice",
+            "Bella",
+            "Bianca",
+            "Bridget",
+            "Brooke",
+            "Caitlin",
+            "Camille",
+            "Cara",
+            "Carly",
+            "Catherine",
+            "Celeste",
+            "Charlotte",
+            "Clara",
+            "Daisy",
+            "Danielle",
+            "Darcey",
+            "Edith",
+            "Elena",
+            "Eliza",
+            "Elsie",
+            "Emma",
+            "Erin",
+            "Esme",
+            "Eva",
+            "Felicity",
+            "Francesca",
+            "Freya",
+            "Gemma",
+            "Georgia",
+            "Harriet",
+            "Heidi",
+            "Imogen",
+            "Iris",
+            "Ivy",
+            "Joanna",
+            "Juliet",
+            "Keira",
+            "Leona",
+            "Lila",
+            "Lucy"
         ]
         self._load_map()
 
@@ -86,17 +119,30 @@ class PlayerNameMapper:
         self._save_map()
 
     def apply_mapping(self, df: pd.DataFrame, col: str = "player_name") -> pd.DataFrame:
-        """
-        Apply mapping to DataFrame.
-
-        Args:
-            df (pd.DataFrame): Input data
-            col (str): Column to remap
-
-        Returns:
-            pd.DataFrame: DataFrame with readable names
-        """
         self.update_mapping(df, col)
         df = df.copy()
-        df[col] = df[col].map(self.name_map)
+        raw = df[col].astype(str)
+        df[col] = raw.map(self.name_map).fillna(raw)
         return df
+
+    def upgrade_placeholders(self, pattern: str = r"Player_\d+") -> int:
+        """
+        Replace existing placeholder names like 'Player_21' with unused candidate names.
+        Returns how many entries were updated.
+        """
+        placeholder_ids = [pid for pid, nm in self.name_map.items()
+                           if re.fullmatch(pattern, str(nm))]
+        if not placeholder_ids:
+            return 0
+    
+        used_real = {nm for nm in self.name_map.values()
+                     if not re.fullmatch(pattern, str(nm))}
+    
+        available = [n for n in self.candidate_names if n not in used_real]
+        k = min(len(placeholder_ids), len(available))
+    
+        for pid, new_name in zip(sorted(placeholder_ids), available[:k]):
+            self.name_map[pid] = new_name
+    
+        self._save_map()
+        return k
