@@ -103,7 +103,10 @@ class PlayerNameMapper:
             df (pd.DataFrame): Input data
             col (str): Column containing player IDs
         """
-        unique_ids = df[col].unique().tolist()
+        if col not in df.columns:
+            raise KeyError(f"Column '{col}' not found in DataFrame.")
+
+        unique_ids = [pid for pid in df[col].dropna().unique().tolist() if str(pid).strip() != ""]
         used_names = set(self.name_map.values())
 
         for pid in unique_ids:
@@ -119,10 +122,14 @@ class PlayerNameMapper:
         self._save_map()
 
     def apply_mapping(self, df: pd.DataFrame, col: str = "player_name") -> pd.DataFrame:
+        if col not in df.columns:
+            raise KeyError(f"Column '{col}' not found in DataFrame.")
+
         self.update_mapping(df, col)
         df = df.copy()
-        raw = df[col].astype(str)
-        df[col] = raw.map(self.name_map).fillna(raw)
+        raw = df[col]
+        mapped = raw.astype(str).map(self.name_map)
+        df[col] = mapped.where(mapped.notna(), raw)
         return df
 
     def upgrade_placeholders(self, pattern: str = r"Player_\d+") -> int:
