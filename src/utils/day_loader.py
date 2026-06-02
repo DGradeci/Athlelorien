@@ -10,6 +10,7 @@ Key changes vs older version:
 
 from __future__ import annotations
 
+import os
 from datetime import datetime, date, timedelta
 from typing import List, Optional
 
@@ -81,7 +82,8 @@ class DayDataLoader:
 
     def _extract_date(self, path: str) -> date:
         """Assumes final folder is YYYY-MM-DD."""
-        d = path.rstrip("/").split("/")[-1]
+        normalized = path.rstrip("/\\")
+        d = os.path.basename(normalized)
         return datetime.strptime(d, "%Y-%m-%d").date()
 
     def _list_parquets(self, path: str, max_files: Optional[int] = None) -> List[str]:
