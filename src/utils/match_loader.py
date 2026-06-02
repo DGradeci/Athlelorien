@@ -5,7 +5,9 @@ This wraps your original procedural loader into a MatchesLoader class while
 preserving behaviour and regex heuristics.
 """
 
+import os
 import re
+from pathlib import Path
 from typing import List, Optional, Tuple
 
 import numpy as np
@@ -151,7 +153,32 @@ class MatchesLoader:
     """
 
     def __init__(self, src_path: str) -> None:
-        self.src_path = src_path
+        self.src_path = self._resolve_source_path(src_path)
+
+    def _resolve_source_path(self, src_path: str) -> str:
+        """Resolve common workspace-relative fallbacks for the match file."""
+        raw_path = Path(src_path).expanduser()
+        if raw_path.exists():
+            return str(raw_path)
+
+        env_path = os.getenv("MATCHES_XLSX")
+        if env_path and Path(env_path).expanduser().exists():
+            return str(Path(env_path).expanduser().resolve())
+
+        repo_root = Path(__file__).resolve().parents[2]
+        workspace_root = repo_root.parent.parent
+        candidates = [
+            repo_root / "data" / raw_path.name,
+            workspace_root / "project" / "data" / raw_path.name,
+            Path.cwd() / "project" / "data" / raw_path.name,
+            Path.cwd() / raw_path.name,
+        ]
+
+        for candidate in candidates:
+            if candidate.exists():
+                return str(candidate.resolve())
+
+        return str(raw_path)
 
     # ------------------------------
     # Public API
