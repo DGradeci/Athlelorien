@@ -4,6 +4,7 @@ Utilities for mapping player IDs to readable names.
 
 import json
 import os
+from pathlib import Path
 from typing import Dict, List
 
 import pandas as pd
@@ -24,7 +25,7 @@ class PlayerNameMapper:
             map_path (str): Path to JSON file storing mappings.
             candidate_names (list): Pool of names to use for new players.
         """
-        self.map_path = map_path
+        self.map_path = self._resolve_map_path(map_path)
         self.name_map: Dict[str, str] = {}
         self.candidate_names = candidate_names or [
             "Alice",
@@ -48,11 +49,35 @@ class PlayerNameMapper:
         ]
         self._load_map()
 
+    def _resolve_map_path(self, map_path: str) -> str:
+        """Resolve the mapping file from common repo/workspace locations."""
+        raw_path = Path(map_path).expanduser()
+        if raw_path.exists():
+            return str(raw_path)
+
+        src_dir = Path(__file__).resolve().parents[1]
+        workspace_root = src_dir.parent.parent.parent
+        candidates = [
+            src_dir / "config" / raw_path.name,
+            workspace_root / "repos" / "athlelorian" / "src" / "config" / raw_path.name,
+            workspace_root / "project" / "src" / "config" / raw_path.name,
+        ]
+
+        for candidate in candidates:
+            if candidate.exists():
+                return str(candidate.resolve())
+
+        return str(raw_path)
+
     def _load_map(self) -> None:
         """Load existing mapping from JSON file if it exists."""
         if os.path.exists(self.map_path):
-            with open(self.map_path, "r", encoding="utf-8") as f:
-                self.name_map = json.load(f)
+            try:
+                with open(self.map_path, "r", encoding="utf-8-sig") as f:
+                    content = f.read().strip()
+                self.name_map = json.loads(content) if content else {}
+            except (json.JSONDecodeError, OSError):
+                self.name_map = {}
         else:
             self.name_map = {}
 
