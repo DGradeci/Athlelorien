@@ -3,12 +3,14 @@ Pitch drawing utilities for 2D visualisation.
 """
 
 from __future__ import annotations
-
 from typing import List, Tuple
 
 import matplotlib.patches as patches
 import matplotlib.axes
 
+import matplotlib.patches as patches
+import matplotlib.axes
+from typing import List, Tuple
 
 def draw_pitch(
     ax: matplotlib.axes.Axes,
@@ -19,15 +21,28 @@ def draw_pitch(
     show_active_zone: bool = True,
     show_scale_bar: bool = True,
     scale_bar_length_m: float = 10.0,  # length of the scale bar in metres
+    # NEW: fill the region between pitch bounds and axes (outer box)
+    show_outer_fill: bool = True,
+    outer_fill_color: str = "gray",
+    outer_fill_alpha: float = 0.4,
+    # NEW: base pitch fill (useful when outer fill is on)
+    pitch_fill_color: str = "white",
 ) -> None:
     """
     Draw a football pitch from pitch_xy plus:
       - outer rectangle at the simulation limits (pitch + margin_m)
+      - optional filled outer region (between pitch bounds and figure/axes limits)
       - red ring (bench strip) between pitch perimeter and active zone
       - light-green filled active zone (depth >= active_depth_m)
       - horizontal scale bar (in metres).
 
     Pitch lines are always drawn on top of the coloured areas.
+
+    Notes
+    -----
+    - When show_outer_fill=True, we first paint the whole outer box with outer_fill_color,
+      then paint the pitch interior with pitch_fill_color. This creates a clean "ring"
+      between the pitch perimeter and the figure limits.
     """
     import numpy as np
 
@@ -40,6 +55,33 @@ def draw_pitch(
     outer_xmax = xmax + margin_m
     outer_ymin = ymin - margin_m
     outer_ymax = ymax + margin_m
+
+    # Optional: fill the margin/background ring
+    if show_outer_fill:
+        # Fill entire outer box
+        ax.add_patch(
+            patches.Rectangle(
+                (outer_xmin, outer_ymin),
+                outer_xmax - outer_xmin,
+                outer_ymax - outer_ymin,
+                facecolor=outer_fill_color,
+                edgecolor="none",
+                alpha=outer_fill_alpha,
+                zorder=0.15,
+            )
+        )
+        # Paint pitch interior back to a base colour so only the margin shows outer_fill_color
+        ax.add_patch(
+            patches.Rectangle(
+                (xmin, ymin),
+                xmax - xmin,
+                ymax - ymin,
+                facecolor=pitch_fill_color,
+                edgecolor="none",
+                alpha=1.0,
+                zorder=0.25,
+            )
+        )
 
     if show_outer_box:
         ax.add_patch(
@@ -55,12 +97,12 @@ def draw_pitch(
             )
         )
 
-    # coloured pitch areas
+    # coloured pitch areas (bench strip + active zone)
     if show_active_zone and active_depth_m is not None and active_depth_m > 0:
         pitch_width = xmax - xmin
         pitch_height = ymax - ymin
 
-        # entire pitch light red
+        # entire pitch light red (bench strip background)
         ax.add_patch(
             patches.Rectangle(
                 (xmin, ymin),
@@ -68,7 +110,7 @@ def draw_pitch(
                 pitch_height,
                 facecolor="red",
                 edgecolor="none",
-                alpha=0.1,
+                alpha=0.5,
                 zorder=0.6,
             )
         )
@@ -84,9 +126,9 @@ def draw_pitch(
                     (inner_xmin, inner_ymin),
                     inner_xmax - inner_xmin,
                     inner_ymax - inner_ymin,
-                    facecolor="green",
+                    facecolor="springgreen",
                     edgecolor="none",
-                    alpha=0.3,
+                    alpha=1,
                     zorder=0.7,
                 )
             )
@@ -156,20 +198,8 @@ def draw_pitch(
 
         ax.plot([bar_x0, bar_x1], [bar_y, bar_y], lw=2.0, color="black", zorder=2)
         tick_h = (ymin - outer_ymin) * 0.08
-        ax.plot(
-            [bar_x0, bar_x0],
-            [bar_y - tick_h, bar_y + tick_h],
-            lw=1.5,
-            color="black",
-            zorder=2,
-        )
-        ax.plot(
-            [bar_x1, bar_x1],
-            [bar_y - tick_h, bar_y + tick_h],
-            lw=1.5,
-            color="black",
-            zorder=2,
-        )
+        ax.plot([bar_x0, bar_x0], [bar_y - tick_h, bar_y + tick_h], lw=1.5, color="black", zorder=2)
+        ax.plot([bar_x1, bar_x1], [bar_y - tick_h, bar_y + tick_h], lw=1.5, color="black", zorder=2)
 
         ax.text(
             bar_x_center,
@@ -184,6 +214,8 @@ def draw_pitch(
     ax.set_aspect("equal", adjustable="box")
     ax.set_xlim(outer_xmin, outer_xmax)
     ax.set_ylim(outer_ymin, outer_ymax)
+
+    # Keep default axes background white; the outer-fill patch provides the colour when enabled.
     ax.set_facecolor("white")
 
     for sp in ax.spines.values():
