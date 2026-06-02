@@ -1,14 +1,25 @@
+import json
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 import fsspec
+import pytest
 from pathlib import Path
 
 from utils.day_loader import DayDataLoader
 from utils.player_utils import PlayerNameMapper
 
 
-def test_day_loader_load_day_1hz_mean(tmp_path: Path):
+@pytest.fixture
+def player_map_fixture(tmp_path: Path):
+    """Create a minimal player_map.json fixture for tests."""
+    map_file = tmp_path / "player_map.json"
+    with open(map_file, "w", encoding="utf-8") as f:
+        json.dump({"id1": "Abigail", "id2": "Ada"}, f)
+    return str(map_file)
+
+
+def test_day_loader_load_day_1hz_mean(tmp_path: Path, player_map_fixture: str):
     day_dir = tmp_path / "2024-01-01"
     day_dir.mkdir(parents=True, exist_ok=True)
 
@@ -28,7 +39,7 @@ def test_day_loader_load_day_1hz_mean(tmp_path: Path):
         pq.write_table(table, path)
 
     fs = fsspec.filesystem("file")
-    mapper = PlayerNameMapper(str(tmp_path / "player_map.json"))
+    mapper = PlayerNameMapper(player_map_fixture)
     loader = DayDataLoader(fs, mapper)
 
     result = loader.load_day_1hz(str(day_dir), method="mean")
