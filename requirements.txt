@@ -1,53 +1,22 @@
-# --- Core AWS / Data ---
+# Core dependencies
 boto3
 s3fs
 pandas
 pyarrow
 python-dotenv
 openpyxl
-
-# --- Math / Stats / Distributions ---
 numpy
-scipy         # Levy, stats, optimization
-statsmodels   # Time series + distributions
-sympy          # Symbolic maths (for analytical Levy work)
-mpmath        # Arbitrary precision maths (useful for tails)
-
-# --- Spatial / Geometry / Trajectories ---
-shapely         # Geometric operations (points, polygons, angles)
-geopandas      # Geospatial dataframe integration
-scikit-learn  # KD-trees, clustering
-scipy          # (comes with scipy: KDTree, Voronoi, Delaunay)
-
-# --- Tesselations / Triangulation ---
-networkx       # Graphs of trajectories, connectivity
-triangle    # 2D triangulations
-pyvoronoi     # Voronoi tessellations
-matplotlib     # Visualisation (has built-in triangulate & Voronoi)
+scipy
+statsmodels
+matplotlib
+scikit-learn
 seaborn
 
-# --- Trajectory / Movement Analysis ---
-trackpy       # Particle/trajectory tracking
-pynndescent   # Fast nearest-neighbour search (for trajectories)
-
-# --- Angle / Gyroscope Data ---
-pycircstat     # Circular statistics (angles, gyroscopes)
-
-
-# --- Deep Learning (if testing ML on trajectories later) ---
-torch
-torchvision
-
-# --- Experimentation ---
-tqdm
+# Notebook / interactive
 jupyter
 ipykernel
 
-# --- Testing / Dev ---
+# Development / testing
 pytest
 black
-#ruff==0.6.9
 mypy
-
-# --- Optional (Tracking / Future ML) ---
-mlflow

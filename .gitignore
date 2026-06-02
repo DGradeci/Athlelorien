@@ -52,6 +52,20 @@ data/
 *.h5
 *.db
 
+# --- Large/generated artifacts ---
+*.zip
+*.mp4
+*.mov
+*.avi
+*.gif
+
+# --- Excel/data files ---
+*.xlsx
+*.xls
+
+# --- Accidental nested notebook folders ---
+notebooks/notebooks/
+
 # --- MLflow / Tracking ---
 mlruns/
 mlartifacts/
