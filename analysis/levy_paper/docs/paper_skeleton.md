@@ -119,7 +119,7 @@ $$h(a) = \lim_{\Delta t \to 0} \frac{P(a \leq T < a + \Delta t \mid T \geq a)}{\
 **Baseline model** (inverse-age):
 $$h_0(a) = \lambda_\infty + \frac{\mu}{a_0 + a}$$
 
-Fit by maximum likelihood (Poisson approximation on age-binned intervals).
+Fit by minimizing sum of squared errors (SSE) between the model and empirical binned hazard values using Nelder-Mead optimisation.
 
 **Order-dependent model** (with covariate):
 $$h(a, p) = h_0(a) \exp(\beta\, z_p)$$

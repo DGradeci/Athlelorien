@@ -307,7 +307,7 @@ analysis/levy_paper/
 | `plot_ccdf(ax, values, ...)` | fn | Log-log CCDF with optional exp. reference |
 | `plot_ccdf_by_state(ax, df, ...)` | fn | CCDF split by order state |
 | `plot_msd(ax, tau, msd, ...)` | fn | MSD with power-law fit |
-| `plot_hazard(ax, age, h, ...)` | fn | Hazard plot with inverse-age fit |
+| `plot_hazard(ax, age, h, ...)` | fn | Hazard plot with inverse-age fit (SSE, Nelder-Mead) |
 | `plot_state_transition_matrix(ax, P)` | fn | Heatmap of Markov matrix |
 | `save_cache(df, name)` | fn | Save parquet to `data/` |
 | `load_cache(name)` | fn | Load parquet from `data/` |
@@ -336,3 +336,10 @@ If using this analysis or data, please cite:
   - Paper skeleton and figures guide in `docs/`
   - Outstanding TODOs tracked in README §Key Outstanding Questions
   - New analyses: position labelling (01), robustness suite (06), H2H coupling (07)
+- **2026-06-04**: Post-refactor fixes and first full pipeline run:
+  - `player_map.json` populated with 40 player UUID-to-name mappings (TeamA/TeamB)
+  - `paper_utils.py` `plot_hazard()`: inverse-age fitting switched from MLE to SSE
+  - `04_hazard_mechanism.ipynb`: `age_bin` column added; Cox model skip guard; improved diagnostics
+  - `06_robustness_checks.ipynb`: fixed column names (`length_m`→`run_length_m`, `speed_mps`→`v_mean_mps`)
+  - `05_stochastic_order_model.ipynb`: simplified panel A polarisation time series selection
+  - Pipeline run: 17 matches loaded, 18,021 centroid runs, 89,947 PMV rows, 2 H2H fixtures

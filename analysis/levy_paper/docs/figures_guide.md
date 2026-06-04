@@ -124,12 +124,14 @@ cancel; centroid captures the collective component.
 
 ## Figure 4 — Hazard Mechanism and State Dynamics
 **Notebook**: `04_hazard_mechanism.ipynb`
-**Status**: ✓ Code complete (Cox model requires `lifelines` package)
+**Status**: ✓ Code complete (Cox model requires `lifelines`; notebook skips gracefully if not installed)
 
 ### Panel A — Empirical hazard vs run age
 - **x-axis**: Run age $a$ (s).
 - **y-axis**: Hazard $h(a)$.
 - **Content**: Points with Poisson CIs, inverse-age fit overlaid.
+- **Fitting method**: Parameters $\lambda_\infty, \mu$ are estimated by minimizing SSE
+  against empirical binned hazard values (Nelder-Mead), not by MLE.
 - **What to look for**: Decreasing hazard with age — fragile runs die early,
   survivors stabilise.  Inverse-age model fits well.
 

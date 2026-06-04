@@ -83,6 +83,13 @@ in this refactor, and what still needs doing.
 - Head-to-head caches (`df_pmv_teamA`, `df_pmv_teamB`, `hazard_intervals_h2h`)
   are saved separately for notebook 07.
 
+**Pipeline run results** (2020 season):
+- 90 matches found in schedule.
+- 17 matches successfully loaded from GPS data (remaining have missing parquet files in S3).
+- 707,556 base runs; 18,021 centroid runs.
+- 89,947 PMV rows (polarisation/milling/velocity per frame).
+- 2 head-to-head fixtures loaded.
+
 **For notebook 07**: once 4 head-to-head fixtures are loaded, simply re-run
 `01_data_loading.ipynb` and notebook 07 will use all 4.
 
@@ -213,6 +220,17 @@ docs/
   `plot_state_transition_matrix` — consistent style across all figures.
 - **Publication quality**: `configure_paper_plotting()` sets serif fonts,
   300 dpi, solid white backgrounds, PDF/PNG export.
+
+**Post-refactor fixes applied**:
+- `06_robustness_checks.ipynb`: corrected column references `length_m` → `run_length_m`
+  and `speed_mps` → `v_mean_mps` to match the parquet cache schema.
+- `04_hazard_mechanism.ipynb`: added `age_bin` creation from `age_mid_s`; improved
+  diagnostics; Cox model gracefully skips if `lifelines` is not installed.
+- `05_stochastic_order_model.ipynb`: simplified panel A polarisation time series
+  selection — now uses `run_id` lookup directly without a fallback path.
+- `paper_utils.py` `plot_hazard()`: switched inverse-age fitting from MLE to SSE
+  (Nelder-Mead on sum of squared errors against binned hazard) for a more direct
+  and stable curve fit.
 
 ---
 
