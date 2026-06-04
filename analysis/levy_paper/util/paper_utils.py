@@ -293,14 +293,14 @@ def plot_hazard(
 
     from scipy.optimize import minimize
 
-    def neg_log_lik(params: np.ndarray) -> float:
+    def sse(params: np.ndarray) -> float:
         lam_inf, mu = params
         if lam_inf < 0 or mu < 0:
             return 1e9
-        h = lam_inf + mu / (a0 + age_centres)
-        return -np.sum(np.log(np.clip(h, 1e-12, None)))
+        h_model = lam_inf + mu / (a0 + age_centres)
+        return float(np.sum((hazard - h_model) ** 2))
 
-    res = minimize(neg_log_lik, x0=[0.02, 1.0], method="Nelder-Mead")
+    res = minimize(sse, x0=[0.02, 1.0], method="Nelder-Mead")
     lam_inf, mu = res.x
     a_fit = np.linspace(age_centres[0], age_centres[-1], 200)
     h_fit = lam_inf + mu / (a0 + a_fit)
