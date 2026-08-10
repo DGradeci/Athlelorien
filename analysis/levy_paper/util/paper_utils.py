@@ -42,6 +42,8 @@ _REPO_ROOT  = _PAPER_ROOT.parent.parent          # .../athlelorian
 
 DATA_DIR    = _PAPER_ROOT / "data"
 FIGURES_DIR = _PAPER_ROOT / "figures"
+PRIMARY_CACHE_NAME = "all_team_2020_2021_sticky_active"
+PRIMARY_CACHE_DIR = DATA_DIR / "processed" / PRIMARY_CACHE_NAME
 
 DATA_DIR.mkdir(exist_ok=True)
 FIGURES_DIR.mkdir(exist_ok=True)
@@ -64,6 +66,8 @@ MIN_RUN_FRAMES  = 3       # shortest run to keep
 ACTIVE_DEPTH_M  = 6.0     # distance from goal line to classify as active
 ACTIVATE_S      = 70      # hysteresis: frames in-zone before "active"
 BENCH_OFF_S     = 110     # frames out-of-zone before "bench"
+ACTIVE_PLAYER_METHOD = "sticky_hierarchical_active_xi"
+MAX_ACTIVE_PLAYERS = 11
 
 # Hazard model
 A0              = 5.0     # age-offset in inverse-age baseline
@@ -112,8 +116,8 @@ def configure_paper_plotting(base: int = 11) -> None:
         {
             "text.usetex":        False,
             "mathtext.fontset":   "cm",
-            "font.family":        "serif",
-            "font.serif": ["CMU Serif", "Computer Modern", "STIX", "DejaVu Serif"],
+            "font.family":        "DejaVu Serif",
+            "font.serif": ["DejaVu Serif"],
             "axes.unicode_minus": False,
             "pdf.fonttype":       42,
             "ps.fonttype":        42,
@@ -141,6 +145,48 @@ def configure_paper_plotting(base: int = 11) -> None:
             "savefig.dpi":       300,
         }
     )
+
+
+def draw_panel_letter(
+    ax: plt.Axes,
+    letter: str,
+    *,
+    x: float = -0.12,
+    y: float = 1.04,
+    fontsize: float | None = None,
+    weight: str = "normal",
+    suffix: str = ".",
+) -> None:
+    """Draw a standard letter-only panel label in axes coordinates."""
+    ax.text(
+        x,
+        y,
+        f"{letter}{suffix}",
+        transform=ax.transAxes,
+        ha="left",
+        va="bottom",
+        fontsize=fontsize,
+        fontweight=weight,
+        color="black",
+        clip_on=False,
+    )
+
+
+def draw_panel_letters(
+    axes: Sequence[plt.Axes],
+    *,
+    letters: Sequence[str] | None = None,
+    x: float = -0.12,
+    y: float = 1.04,
+    fontsize: float | None = None,
+    weight: str = "normal",
+    suffix: str = ".",
+) -> None:
+    """Apply standard letter-only panel labels to a sequence of axes."""
+    if letters is None:
+        letters = [chr(ord("A") + i) for i in range(len(axes))]
+    for ax, letter in zip(axes, letters):
+        draw_panel_letter(ax, letter, x=x, y=y, fontsize=fontsize, weight=weight, suffix=suffix)
 
 
 # ---------------------------------------------------------------------------
@@ -347,9 +393,35 @@ def save_cache(df: pd.DataFrame, name: str) -> Path:
     return path
 
 
-def load_cache(name: str) -> pd.DataFrame:
-    """Load a cached parquet artefact from DATA_DIR."""
-    path = DATA_DIR / f"{name}.parquet"
+def cache_path(
+    filename: str,
+    *,
+    cache_name: str = PRIMARY_CACHE_NAME,
+    legacy_fallback: bool = True,
+) -> Path:
+    """Return the canonical processed-cache path, with legacy flat-file fallback."""
+    canonical = DATA_DIR / "processed" / cache_name / filename
+    if canonical.exists() or not legacy_fallback:
+        return canonical
+    legacy = DATA_DIR / filename
+    if legacy.exists():
+        return legacy
+    return canonical
+
+
+def load_cache(name: str, suffix: str | None = None) -> pd.DataFrame:
+    """Load a cached parquet artefact from DATA_DIR.
+
+    Parameters
+    ----------
+    name : str
+        Base cache stem, e.g. ``"runs_long"``.
+    suffix : str, optional
+        Optional cache suffix, e.g. ``"2020_2021_all_teams_pitchfix_sticky_active"``.
+        When supplied, loads ``{name}_{suffix}.parquet``.
+    """
+    stem = f"{name}_{suffix}" if suffix else name
+    path = DATA_DIR / f"{stem}.parquet"
     if not path.exists():
         raise FileNotFoundError(
             f"Cache file not found: {path}\n"

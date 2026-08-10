@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this code or its processed outputs, please cite the associated paper."
+title: "Athlelorien: football collective-transport analysis"
+type: software
+license: MIT
+authors:
+  - family-names: "Herrera Sanchez"
+    given-names: "Guillermo"
+  - family-names: "Gradeci"
+    given-names: "Daniel"
+  - family-names: "Ramsey"
+    given-names: "Danielle"
+  - family-names: "Khan"
+    given-names: "Safe"
+repository-code: "https://github.com/DGradeci/Athlelorien"
+date-released: 2026-08-06
+preferred-citation:
+  type: article
+  title: "The life and death of football team runs: survival of collective modes shapes Levy-like transport"
+  authors:
+    - family-names: "Herrera Sanchez"
+      given-names: "Guillermo"
+    - family-names: "Gradeci"
+      given-names: "Daniel"
+    - family-names: "Ramsey"
+      given-names: "Danielle"
+    - family-names: "Khan"
+      given-names: "Safe"
+  year: 2026

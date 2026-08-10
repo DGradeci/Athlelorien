@@ -13,6 +13,8 @@ build/
 # --- sandbox-----
 .sandbox/
 sandbox/
+.agents/
+.codex/
 
 # --- Virtual Environments ---
 .venv/
@@ -59,9 +61,92 @@ data/
 *.avi
 *.gif
 
+# --- Levy paper local exploratory/generated trees ---
+analysis/levy_paper/archive/
+analysis/levy_paper/legacy/
+analysis/levy_paper/analysis/
+analysis/levy_paper/docs/
+analysis/levy_paper/chatgpt_share/
+analysis/levy_paper/chatgpt_share_final_*/
+analysis/levy_paper/share_chatgpt/
+analysis/levy_paper/outputs/
+analysis/levy_paper/final_freeze_*/
+analysis/levy_paper/final_paper_completion_*/
+analysis/levy_paper/final_minimal_supplement_*/
+analysis/levy_paper/minimal_supplement_*/
+analysis/levy_paper/minimal_final_supplement_*/
+analysis/levy_paper/supplement_repair_*/
+analysis/levy_paper/supplement_minimal_final_*/
+analysis/levy_paper/final_fig2_update_*/
+analysis/levy_paper/reports/
+analysis/levy_paper/figures/main_figures_textwidth/
+analysis/levy_paper/figures/supplementary_material/archive_only/
+analysis/levy_paper/figures/main_figures/figure5_state_structured_survival_synced.*
+analysis/levy_paper/scripts/audit_cleanup_candidates.py
+analysis/levy_paper/scripts/cleanup_levy_paper_repo.py
+analysis/levy_paper/scripts/create_figure3_collective_order_transport.py
+analysis/levy_paper/scripts/create_figure4_smooth_late_ramp_v25.py
+analysis/levy_paper/scripts/create_final_code_data_freeze.py
+analysis/levy_paper/scripts/create_final_code_fact_audit.py
+analysis/levy_paper/scripts/create_final_figure_notebooks.py
+analysis/levy_paper/scripts/create_final_minimal_supplement_freeze.py
+analysis/levy_paper/scripts/create_minimal_supplement_final.py
+analysis/levy_paper/scripts/create_release_candidate_package.py
+analysis/levy_paper/scripts/create_reviewer_clarification_audit.py
+analysis/levy_paper/scripts/export_main_figures_textwidth.py
+analysis/levy_paper/scripts/final_lagged_order_speed_audit_and_transition_sync.py
+analysis/levy_paper/scripts/final_manuscript_validation_audit.py
+analysis/levy_paper/scripts/final_paper_completion_audit.py
+analysis/levy_paper/scripts/freeze_corrected_pre_submission_robustness_2026_08_02.py
+analysis/levy_paper/scripts/generate_all_team_figures_2020_2021.py
+analysis/levy_paper/scripts/rerun_figureS2_high_rep_bootstrap.py
+analysis/levy_paper/scripts/run_figure2_tail_audit.py
+analysis/levy_paper/scripts/run_temporal_sampling_segmentation_audit.py
+analysis/levy_paper/notebooks/*.ipynb
+outputs/
+release_candidate_*/
+pre_submission_robustness*/
+reviewer_clarification_audit*/
+chatgpt_share/
+.jupyter_config_preview/
+.jupyter_data_preview/
+.jupyter_runtime_preview/
+analysis/active_player_reconstruction_documentation/chatgpt_share*/
+analysis/active_player_reconstruction_documentation/
+final_code_audit/
+final_order_speed_audit/
+final_transition_sync/
+tail_audit/
+tmp/
+tmp_pdf_text_*.txt
+notebooks/subjective/
+notebooks/toppserien_pitches_pre_*_registry_update.json
+notebooks/*.ipynb
+notebooks/src/
+notebooks/
+
 # --- Excel/data files ---
 *.xlsx
 *.xls
+
+# --- Levy paper reproducibility exceptions ---
+# Keep large raw/processed data ignored, but allow small files needed to rebuild
+# or audit the current paper figures.
+!analysis/levy_paper/metadata/
+!analysis/levy_paper/metadata/**
+# NFF schedule exports are local AWS-rebuild inputs and are not redistributed.
+analysis/levy_paper/metadata/schedules/*.xlsx
+!analysis/levy_paper/data/
+analysis/levy_paper/data/**
+!analysis/levy_paper/data/README.md
+!analysis/levy_paper/data/cache_bundle_manifest.csv
+!analysis/levy_paper/figures/**/*.csv
+!analysis/levy_paper/figures/**/*.json
+!analysis/levy_paper/figures/**/*.md
+!analysis/levy_paper/figures/**/*.txt
+!analysis/levy_paper/reports/
+analysis/levy_paper/reports/**
+!analysis/levy_paper/reports/publication_reproducibility_check.csv
 
 # --- Accidental nested notebook folders ---
 notebooks/notebooks/
@@ -77,4 +162,4 @@ mlartifacts/
 # --- MyPy / Ruff / Black ---
 .mypy_cache/
 .ruff_cache/
-"sandbox/" 
+.codex_python_packages/

@@ -1,0 +1,141 @@
+group,path,exists,bytes,valid_notebook,notes_code_only
+reproducibility_doc,README.md,True,5996,,required for public reviewer/collaborator orientation
+reproducibility_doc,CONTRIBUTING.md,True,1473,,required for public reviewer/collaborator orientation
+reproducibility_doc,CITATION.cff,True,925,,required for public reviewer/collaborator orientation
+reproducibility_doc,LICENSE,True,1130,,required for public reviewer/collaborator orientation
+reproducibility_doc,DATA_AND_ASSET_LICENSING.md,True,2326,,required for public reviewer/collaborator orientation
+reproducibility_doc,.env.example,True,437,,required for public reviewer/collaborator orientation
+reproducibility_doc,analysis/levy_paper/README.md,True,7664,,required for public reviewer/collaborator orientation
+reproducibility_doc,analysis/levy_paper/PUBLICATION_GIT_SURFACE.md,True,4080,,required for public reviewer/collaborator orientation
+reproducibility_doc,analysis/levy_paper/PUBLICATION_REPRODUCIBILITY.md,True,6923,,required for public reviewer/collaborator orientation
+reproducibility_doc,analysis/levy_paper/README_CLEAN_STRUCTURE.md,True,4481,,required for public reviewer/collaborator orientation
+reproducibility_doc,analysis/levy_paper/notebooks_publication/README.md,True,2035,,required for public reviewer/collaborator orientation
+reproducibility_doc,analysis/levy_paper/data/README.md,True,3270,,required for public reviewer/collaborator orientation
+reproducibility_doc,analysis/levy_paper/data/cache_bundle_manifest.csv,True,6204,,required for public reviewer/collaborator orientation
+reproducibility_doc,analysis/levy_paper/figures/README.md,True,734,,required for public reviewer/collaborator orientation
+reproducibility_doc,analysis/levy_paper/figures/source_data/README.md,True,1065,,required for public reviewer/collaborator orientation
+reproducibility_doc,analysis/levy_paper/metadata/schedules/README.md,True,1612,,required for public reviewer/collaborator orientation
+reproducibility_doc,analysis/levy_paper/metadata/pitches/README.md,True,656,,required for public reviewer/collaborator orientation
+aws_code_input,analysis/levy_paper/metadata/pitches/toppserien_pitches.json,True,7560,,tracked input required only for AWS raw-data rebuild path
+local_schedule_input,analysis/levy_paper/metadata/schedules/kamper_2020.xlsx,True,9623,,local-only NFF input; not required for reviewer or cache mode
+local_schedule_input,analysis/levy_paper/metadata/schedules/kamper_2021.xlsx,True,9636,,local-only NFF input; not required for reviewer or cache mode
+publication_notebook,analysis/levy_paper/notebooks_publication/00_data_access_and_cache.ipynb,True,15507,True,valid_cells=16
+publication_notebook,analysis/levy_paper/notebooks_publication/01_figure1_transport_mechanism.ipynb,True,7358,True,valid_cells=10
+publication_notebook,analysis/levy_paper/notebooks_publication/02_figure2_transport_phenotype.ipynb,True,10027,True,valid_cells=16
+publication_notebook,analysis/levy_paper/notebooks_publication/03_figure3_order_transport.ipynb,True,9636,True,valid_cells=14
+publication_notebook,analysis/levy_paper/notebooks_publication/04_figure4_killed_transport.ipynb,True,11350,True,valid_cells=16
+publication_notebook,analysis/levy_paper/notebooks_publication/05_figure5_state_structured_survival.ipynb,True,10400,True,valid_cells=16
+publication_notebook,analysis/levy_paper/notebooks_publication/06_supplementary_material.ipynb,True,7836,True,valid_cells=12
+final_figure_asset,analysis/levy_paper/figures/main_figures/figure1_transport_mechanism_schematic.png,True,447790,,
+final_figure_asset,analysis/levy_paper/figures/main_figures/figure1_transport_mechanism_schematic.pdf,True,49354,,
+final_figure_asset,analysis/levy_paper/figures/main_figures/figure2_transport_phenotype.png,True,345044,,
+final_figure_asset,analysis/levy_paper/figures/main_figures/figure2_transport_phenotype.pdf,True,47335,,
+final_figure_asset,analysis/levy_paper/figures/main_figures/figure3_order_transport.png,True,375272,,
+final_figure_asset,analysis/levy_paper/figures/main_figures/figure3_order_transport.pdf,True,31629,,
+final_figure_asset,analysis/levy_paper/figures/main_figures/figure4_killed_transport.png,True,279865,,
+final_figure_asset,analysis/levy_paper/figures/main_figures/figure4_killed_transport.pdf,True,37704,,
+final_figure_asset,analysis/levy_paper/figures/main_figures/figure5_state_structured_survival.png,True,307458,,
+final_figure_asset,analysis/levy_paper/figures/main_figures/figure5_state_structured_survival.pdf,True,25196,,
+final_figure_asset,analysis/levy_paper/figures/main_figures/final_figure_manifest.csv,True,3346,,
+supplement_asset,analysis/levy_paper/figures/supplementary_material/figures/figureS1_duration_model_comparison.png,True,184733,,
+supplement_asset,analysis/levy_paper/figures/supplementary_material/figures/figureS1_duration_model_comparison.pdf,True,28855,,
+supplement_asset,analysis/levy_paper/figures/supplementary_material/figures/figureS2_segmentation_robustness_final.png,True,275384,,
+supplement_asset,analysis/levy_paper/figures/supplementary_material/figures/figureS2_segmentation_robustness_final.pdf,True,27676,,
+supplement_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS1_dataset_processing_final.csv,True,3634,,
+supplement_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS2_models_and_robustness_final.csv,True,5055,,
+supplement_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS3_transition_matrices_final.csv,True,393,,
+supplement_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS4_active_player_reconstruction_parameters.csv,True,2369,,
+supplement_asset,analysis/levy_paper/figures/supplementary_material/supplementary_material_manifest.csv,True,6520,,
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/figures/figureS1_duration_model_comparison.png,True,184733,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/figures/figureS1_duration_model_comparison.pdf,True,28855,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/figures/figureS1_duration_model_comparison.svg,True,89030,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/figures/figureS2_segmentation_robustness_final.png,True,275384,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/figures/figureS2_segmentation_robustness_final.pdf,True,27676,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/figures/figureS2_segmentation_robustness_final.svg,True,89194,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS1_dataset_processing_final.csv,True,3634,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS1_dataset_processing_final.tex,True,4064,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS2_models_and_robustness_final.csv,True,5055,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS2_models_and_robustness_final.tex,True,7800,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS3_transition_matrices_final.csv,True,393,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS3_transition_matrices_final.tex,True,600,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS4_active_player_reconstruction_parameters.csv,True,2369,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS4_active_player_reconstruction_parameters.tex,True,3155,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/tableS_segmentation_robustness_final.csv,True,722,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/tables/tableS_segmentation_robustness_final.tex,True,800,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/figureS1_panelA_model_curves.csv,True,67599,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/figureS1_panelB_lofo_contrasts.csv,True,1788,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/duration_model_parameters_final.csv,True,3114,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/duration_model_gof_final.csv,True,813,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/tableS1_dataset_processing_source.csv,True,3634,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/tableS2_models_and_robustness_source.csv,True,5055,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/tableS3_direct_transition_counts.csv,True,1636,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/tableS3_unrounded_probabilities.csv,True,2330,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/active_player_reconstruction_evidence_map.csv,True,12376,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/active_player_reconstruction_exact_spec.md,True,15486,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/reports/final_supplement_publication_manifest.csv,True,771,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/reports/final_supplement_archive_manifest.csv,True,3845,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/reports/figureS2_archive_manifest.csv,True,3845,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/reports/final_minimal_supplement_checksums.csv,True,7874,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/reports/tableS3_row_sum_audit.csv,True,299,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/reports/manuscript_supplement_reference_inventory.csv,True,2225,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/reports/FINAL_MINIMAL_SUPPLEMENT_DATA_REPORT.md,True,4249,,listed in public supplement manifest
+supplement_manifest_asset,analysis/levy_paper/figures/supplementary_material/source_data/figureS2_segmentation_robustness_source.csv,True,34190,,listed in public supplement manifest
+tracked_source_data,analysis/levy_paper/figures/source_data/figure1_transport_mechanism/real_match_20s_player_centroid_trajectories_audit.csv,True,615,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure1_transport_mechanism/real_match_transport_mechanism_4panel_audit.json,True,8567,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure2_transport_phenotype/figure2_panelA_duration_survivor_audit.csv,True,37418,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure2_transport_phenotype/figure2_panelB_length_survivor_audit.csv,True,37352,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure2_transport_phenotype/figure2_panelC_msd_aggregate_audit.csv,True,27159,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure2_transport_phenotype/figure2_panelD_msd_decomposition_components.csv,True,235150,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure3_order_transport/figure3_order_transport_ccdf_audit.csv,True,29368,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure3_order_transport/figure3_order_transport_manifest.json,True,1384,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure4A_source_data.csv,True,30609,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure4B_source_data.csv,True,50096,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure4C_source_data.csv,True,77002,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure5A_source_data.csv,True,7872,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure5B_source_data.csv,True,37635,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data,analysis/levy_paper/figures/source_data/figure5C_source_data.csv,True,49278,,required for GitHub-only figure inspection/source-data audit
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/crossfit_birth_state_distributions.csv,True,6851,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/crossfit_fold_manifest.csv,True,3575,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/crossfit_hazard_parameters.csv,True,32896,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/crossfit_leakage_audit.csv,True,1608,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/crossfit_training_thresholds.csv,True,9411,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/crossfit_transition_parameters.csv,True,236353,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/crossfit_validation_metrics.csv,True,2918,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/figure4A_source_data.csv,True,30609,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/figure4B_source_data.csv,True,50096,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/figure4C_source_data.csv,True,77002,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/figure5A_source_data.csv,True,7872,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/figure5B_source_data.csv,True,37635,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/figure5C_source_data.csv,True,49278,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/final_crossfitted_validation_metrics.csv,True,2918,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/final_fixture_high_exposure_errors.csv,True,2943,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/supplementary_interval_hazard_calibration_source.csv,True,1165,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/supplementary_state_conditioned_hazard_calibration_source.csv,True,4698,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/final_fig4_fig5_manifest.json,True,7584,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/final_counterfactual_definitions.md,True,580,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/final_crossfit_audit.md,True,1960,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/final_crossfitted_validation_summary.md,True,3713,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/final_fig4_fig5_polish_report.md,True,2628,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/final_figure4_caption.txt,True,833,,listed in source-data manifest
+tracked_source_data_manifest_asset,analysis/levy_paper/figures/source_data/final_figure5_caption.txt,True,613,,listed in source-data manifest
+optional_local_cache,analysis/levy_paper/data/processed/all_team_2020_2021_sticky_active/trajectory_long_2020_2021_all_teams_pitchfix_sticky_active.parquet,True,145474496,,optional for regeneration; not required for frozen inspection
+optional_local_cache,analysis/levy_paper/data/processed/all_team_2020_2021_sticky_active/runs_long_2020_2021_all_teams_pitchfix_sticky_active.parquet,True,97945676,,optional for regeneration; not required for frozen inspection
+optional_local_cache,analysis/levy_paper/data/processed/all_team_2020_2021_sticky_active/df_pmv_2020_2021_all_teams_pitchfix_sticky_active.parquet,True,11866060,,optional for regeneration; not required for frozen inspection
+optional_local_cache,analysis/levy_paper/data/processed/all_team_2020_2021_sticky_active/msd_long_2020_2021_all_teams_pitchfix_sticky_active.parquet,True,3875465,,optional for regeneration; not required for frozen inspection
+optional_local_cache,analysis/levy_paper/data/processed/all_team_2020_2021_sticky_active/centroid_order_runs_2020_2021_all_teams_pitchfix_sticky_active.parquet,True,10598577,,optional for regeneration; not required for frozen inspection
+optional_local_cache,analysis/levy_paper/data/processed/all_team_2020_2021_sticky_active/hazard_intervals_2020_2021_all_teams_pitchfix_sticky_active.parquet,True,24047394,,optional for regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/figure4_panelA_hazard_audit.csv,True,12801,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/figure5_panelA_selected_transitions_crossfit_package.csv,True,3722,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/figure5_crossfitted_panelB_current_high_fraction.csv,True,12028,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/figure5_crossfitted_panelC_survival.csv,True,13085,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/figure5_crossfitted_panelD_high_exposure_counterfactuals.csv,True,14897,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/fold_summary.csv,True,2937,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/state_thresholds.csv,True,9411,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/pi0.csv,True,6920,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/out_of_fold_interval_predictions.parquet,True,4873781,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/fold_curves.csv,True,2296301,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/transition_matrices.csv,True,238731,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/hazard_parameters.csv,True,32981,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/crossfitted_validation_metrics.csv,True,1392,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/crossfitted_fixture_level_curve_metrics.csv,True,10477,,optional for Figure 4/5 regeneration; not required for frozen inspection
+optional_model_cache,analysis/levy_paper/data/processed/figure4_fig5_crossfitted/robustness_fold_curves.csv,True,987438,,optional for Figure 4/5 regeneration; not required for frozen inspection

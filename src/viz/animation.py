@@ -21,7 +21,7 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 import numpy as np
 import pandas as pd
 
-from viz.pitch_draw import draw_pitch
+from .pitch_draw import draw_pitch
 
 
 # -----------------------------
