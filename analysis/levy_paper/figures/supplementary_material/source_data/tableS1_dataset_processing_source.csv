@@ -1,0 +1,30 @@
+section,quantity,value,definition,source
+DATASET,competitive fixtures,62,distinct competitive fixtures analysed,verified repository code/output facts
+DATASET,match-date validation groups,47,season-date groups used for grouped validation and bootstrap,verified repository code/output facts
+DATASET,tracked team-match records,66,one tracked club in one competitive fixture/source,verified repository code/output facts
+DATASET,clubs,2,tracked clubs,verified repository code/output facts
+DATASET,centroid-run rows,69802,directional centroid runs,verified repository code/output facts
+DATASET,observed directional terminations,69670,completed directional run endings,verified repository code/output facts
+DATASET,right-censored endings,132,terminal path rows without observed directional turn,verified repository code/output facts
+DATASET,one-second risk intervals,355330,hazard interval rows,verified repository code/output facts
+DATASET,player runs,1192715,player-level directional runs,verified repository code/output facts
+TEMPORAL PROCESSING,native position frequency,10 Hz,SoccerMon/STATSports APEX native stream,verified repository code/output facts
+TEMPORAL PROCESSING,production analysis frequency,1 Hz,analysis grid,verified repository code/output facts
+TEMPORAL PROCESSING,resampling,first timestamp-sorted observation in each one-second bin,production resampling rule,verified repository code/output facts
+TEMPORAL PROCESSING,empty-bin handling,no interpolation and no forward filling,missing one-second bins remain empty,verified repository code/output facts
+TEMPORAL PROCESSING,temporal smoothing,none before production velocity calculation,production velocity input,verified repository code/output facts
+TEMPORAL PROCESSING,velocity,per-player backward differences,successive production positions,verified repository code/output facts
+TEMPORAL PROCESSING,zero-speed headings,excluded from polarisation,undefined unit heading omitted,verified repository code/output facts
+TEMPORAL PROCESSING,turn vectors with norm <= 1e-6 m,skipped rather than treated as turns,turn-vector numerical guard,verified repository code/output facts
+PATH AND ACTIVE-PLAYER RULES,paths split at gaps,>2 s,larger timestamp gaps split paths,verified repository code/output facts
+PATH AND ACTIVE-PLAYER RULES,paths shorter than,30 samples,excluded,verified repository code/output facts
+PATH AND ACTIVE-PLAYER RULES,maximum active players,11,active-player reconstruction cap,verified repository code/output facts
+PATH AND ACTIVE-PLAYER RULES,minimum players for centroid,7,minimum active players required,verified repository code/output facts
+PATH AND ACTIVE-PLAYER RULES,pitch-boundary tolerance,6 m,active-zone tolerance,verified repository code/output facts
+PATH AND ACTIVE-PLAYER RULES,activation persistence,70 s,entry persistence,verified repository code/output facts
+PATH AND ACTIVE-PLAYER RULES,demotion persistence,110 s,bench/off-state persistence,verified repository code/output facts
+RUN AND STATE SETTINGS,directional-turn threshold,30 degrees,run segmentation,verified repository code/output facts
+RUN AND STATE SETTINGS,minimum run duration entering interval analysis,1 s,hazard interval inclusion,verified repository code/output facts
+RUN AND STATE SETTINGS,early-order window,first 3 s,early-order classification,verified repository code/output facts
+RUN AND STATE SETTINGS,Figure 4 categorical order window,"preceding 5 s, current interval excluded",state assignment,verified repository code/output facts
+RUN AND STATE SETTINGS,state age bands,0-5 s; 5-10 s; 10-20 s; 20-35 s,transition matrices,verified repository code/output facts

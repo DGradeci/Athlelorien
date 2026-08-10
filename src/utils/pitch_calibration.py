@@ -5,10 +5,22 @@ Pitch calibration utilities: lat/lon -> (x, y) in metres with pitch-aligned axes
 from __future__ import annotations
 
 import math
+import re
+import unicodedata
 from typing import Dict, Any, List, Tuple
 
 import numpy as np
 import pandas as pd
+
+
+DEFAULT_STADIUM_ALIASES: Dict[str, str] = {
+    "Avaldsnes 1": "Avaldsnes Idrettssenter",
+    "Brann stadion": "Brann Stadion",
+    "Klepp stadion": "Klepp Stadion",
+    "Kringsjå kunstgress": "Kringsjå kunstgress",
+    "Røa kunstgress": "Røa kunstgress",
+    "Stemmemyren kunstgress": "Stemmemyren",
+}
 
 
 def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
@@ -84,14 +96,80 @@ def _auto_scale_degrees(
     return lat, lon, scale
 
 
+def _norm_stadium_name(value: Any) -> str:
+    text = str(value or "").strip().lower()
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    return re.sub(r"[^a-z0-9]+", " ", text).strip()
+
+
+def resolve_pitch_name(
+    stadium_name: Any,
+    pitches: Dict[str, Dict[str, Any]],
+    aliases: Dict[str, str] | None = None,
+) -> str | None:
+    """Resolve a schedule stadium name to a pitch-registry key."""
+    if not stadium_name:
+        return None
+
+    name = str(stadium_name).strip()
+    if name in pitches:
+        return name
+
+    combined_aliases = dict(DEFAULT_STADIUM_ALIASES)
+    if aliases:
+        combined_aliases.update(aliases)
+
+    norm_to_pitch = {_norm_stadium_name(k): k for k in pitches}
+    norm_to_alias = {_norm_stadium_name(k): v for k, v in combined_aliases.items()}
+    norm = _norm_stadium_name(name)
+
+    if norm in norm_to_alias:
+        target = norm_to_alias[norm]
+        if target in pitches:
+            return target
+        return norm_to_pitch.get(_norm_stadium_name(target))
+
+    return norm_to_pitch.get(norm)
+
+
+def _pitch_geometry_from_info(
+    name: str,
+    info: Dict[str, Any],
+) -> Tuple[str, Tuple[float, float], np.ndarray, List[Tuple[float, float]]]:
+    pitch_coords_ll = info["coords"]
+    c_lat, c_lon = polygon_latlon_centroid(pitch_coords_ll)
+    P = polygon_latlon_to_xy(
+        pitch_coords_ll, c_lat, c_lon
+    )  # metres, origin at pitch centre
+
+    C = P - P.mean(axis=0)  # just to stabilise SVD
+    _, _, Vt = np.linalg.svd(C, full_matrices=False)
+    v0, v1 = Vt[0], Vt[1]  # principal axes (unit vectors)
+    if v0[0] < 0:
+        v0, v1 = -v0, -v1
+    R = np.column_stack((v0, v1))  # 2x2 rotation matrix
+
+    pitch_xy_rot = P @ R
+    pitch_xy_rot_list = [tuple(pt) for pt in pitch_xy_rot]
+    return name, (c_lat, c_lon), R, pitch_xy_rot_list
+
+
 def calibrate_pitch_from_df(
     df_1hz: pd.DataFrame,
     pitches: Dict[str, Dict[str, Any]],
     lat_col: str = "lat",
     lon_col: str = "lon",
+    preferred_stadium: str | None = None,
+    stadium_aliases: Dict[str, str] | None = None,
+    warn_distance_m: float | None = 300.0,
+    allow_fallback_to_nearest: bool = True,
 ) -> Tuple[str, Tuple[float, float], np.ndarray, List[Tuple[float, float]]]:
     """
-    Finds the nearest stadium in `pitches` to the GPS cloud in df_1hz.
+    Finds the pitch in `pitches` used for GPS calibration.
+
+    If preferred_stadium is provided, it is resolved against the pitch registry
+    and used first. Otherwise, or if no registry entry/alias is available, the
+    nearest stadium to the first valid GPS sample is used as a fallback.
 
     Parameters
     ----------
@@ -109,6 +187,15 @@ def calibrate_pitch_from_df(
         }
     lat_col, lon_col : str
         Column names for positions in df_1hz.
+    preferred_stadium : str, optional
+        Scheduled venue name to prefer over nearest-GPS matching.
+    stadium_aliases : dict, optional
+        Extra aliases mapping schedule venue names to pitch-registry keys.
+    warn_distance_m : float, optional
+        Print a warning when the first GPS sample is farther than this from the
+        selected pitch centre.
+    allow_fallback_to_nearest : bool
+        If False, unresolved preferred_stadium raises instead of falling back.
 
     Returns
     -------
@@ -119,8 +206,9 @@ def calibrate_pitch_from_df(
     pitch_xy_rot_list : list[(x, y)]
         Rotated pitch polygon in metres, centred at (0, 0).
     """
-    lat = pd.to_numeric(df_1hz[lat_col], errors="coerce")
-    lon = pd.to_numeric(df_1hz[lon_col], errors="coerce")
+    lat_raw = pd.to_numeric(df_1hz[lat_col], errors="coerce")
+    lon_raw = pd.to_numeric(df_1hz[lon_col], errors="coerce")
+    lat, lon, _ = _auto_scale_degrees(lat_raw, lon_raw)
     valid = lat.notna() & lon.notna() & (lat != 0) & (lon != 0)
     if not valid.any():
         raise ValueError("No valid lat/lon rows in df_1hz for calibration.")
@@ -128,46 +216,47 @@ def calibrate_pitch_from_df(
     lat0 = float(lat.loc[valid].iloc[0])
     lon0 = float(lon.loc[valid].iloc[0])
 
-    # 1) nearest stadium by centroid
     best_name: str | None = None
     best_info: Dict[str, Any] | None = None
     best_d = float("inf")
+    match_method = "nearest"
 
-    for name, info in pitches.items():
-        coords = info["coords"]  # list of [lat, lon]
-        c_lat, c_lon = polygon_latlon_centroid(coords)
-        d = haversine(lat0, lon0, c_lat, c_lon)
-        if d < best_d:
-            best_name, best_info, best_d = name, info, d
+    resolved = resolve_pitch_name(preferred_stadium, pitches, aliases=stadium_aliases)
+    if resolved is not None:
+        best_name = resolved
+        best_info = pitches[resolved]
+        c_lat, c_lon = polygon_latlon_centroid(best_info["coords"])
+        best_d = haversine(lat0, lon0, c_lat, c_lon)
+        match_method = "scheduled"
+    elif preferred_stadium and not allow_fallback_to_nearest:
+        raise KeyError(f"Scheduled stadium not found in pitch registry: {preferred_stadium!r}")
+
+    if best_info is None:
+        # Nearest stadium by centroid.
+        for name, info in pitches.items():
+            coords = info["coords"]  # list of [lat, lon]
+            c_lat, c_lon = polygon_latlon_centroid(coords)
+            d = haversine(lat0, lon0, c_lat, c_lon)
+            if d < best_d:
+                best_name, best_info, best_d = name, info, d
 
     if best_info is None or best_name is None:
         raise RuntimeError("Could not match any stadium from the pitches dictionary.")
 
-    # 2) centre (lat/lon) and raw polygon -> metres relative to centre
-    pitch_coords_ll = best_info["coords"]
-    c_lat, c_lon = polygon_latlon_centroid(pitch_coords_ll)
-    P = polygon_latlon_to_xy(
-        pitch_coords_ll, c_lat, c_lon
-    )  # metres, origin at pitch centre
-
-    # 3) PCA/SVD to align long axis horizontally
-    C = P - P.mean(axis=0)  # just to stabilise SVD
-    _, _, Vt = np.linalg.svd(C, full_matrices=False)
-    v0, v1 = Vt[0], Vt[1]  # principal axes (unit vectors)
-    if v0[0] < 0:
-        v0, v1 = -v0, -v1
-    R = np.column_stack((v0, v1))  # 2x2 rotation matrix
-
-    # 4) rotate the polygon
-    pitch_xy_rot = P @ R
-    pitch_xy_rot_list = [tuple(pt) for pt in pitch_xy_rot]
+    best_name, center_latlon, R, pitch_xy_rot_list = _pitch_geometry_from_info(best_name, best_info)
+    c_lat, c_lon = center_latlon
 
     print(
-        f"[calibrate] Stadium='{best_name}', centre=({c_lat:.6f}, {c_lon:.6f}), "
+        f"[calibrate] Stadium='{best_name}', method={match_method}, centre=({c_lat:.6f}, {c_lon:.6f}), "
         f"first-sample distance ≈ {best_d:.1f} m"
     )
+    if warn_distance_m is not None and best_d > float(warn_distance_m):
+        print(
+            f"[calibrate] WARNING: first GPS sample is {best_d:.1f} m from selected pitch "
+            f"'{best_name}' (preferred_stadium={preferred_stadium!r})."
+        )
 
-    return best_name, (c_lat, c_lon), R, pitch_xy_rot_list
+    return best_name, center_latlon, R, pitch_xy_rot_list
 
 
 def attach_xy_from_pitch(

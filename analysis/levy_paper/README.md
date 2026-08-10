@@ -1,345 +1,200 @@
-# Levy-Type Transport in Football: Collective Order and Run Survival
+# Levy Paper Analysis
 
-## Executive Summary
+This folder contains the cleaned analysis pipeline for the football collective
+transport paper. It is organised so a new collaborator can:
 
-This analysis tests whether football team-centroid movement can be understood as a **collective active-matter transport process** in which coherent team order increases speed, suppresses run termination, and generates broad run-duration and run-length statistics. We treat the team as a single collective object and ask: *do coherent, polarised team states create longer-lived and longer-ranged centroid transport?*
+1. reproduce and inspect the frozen paper figures from a GitHub clone,
+2. regenerate figures from optional local processed caches, or
+3. rebuild processed caches from raw Soccermon/AWS data when access is available.
 
-## Central Hypothesis
+## Current Canonical Structure
 
-$$\text{Collective Order} \Rightarrow \text{Lower Termination Hazard + Higher Speed} \Rightarrow \text{Broad Centroid-Transport Tails}$$
-
----
-
-## Paper Structure
-
-### 1. Introduction
-- Football teams as active collectives
-- Why team-level movement matters (not just individual players)
-- Connection to movement ecology and collective motion physics
-- Research question: does alignment/order affect team transport persistence?
-
-### 2. Data and Methods
-
-#### 2.1 GPS Tracking Data
-- Player-level tracking during matches
-- Both individual and head-to-head fixtures
-- Temporal resolution: 1 Hz (downsampled from raw)
-- Spatial reference: pitch-aligned Cartesian coordinates
-
-#### 2.2 Preprocessing Pipeline
-1. **Raw GPS loading** → `df_raw`
-2. **Pitch calibration** → `df_xy` (metres, relative to centre)
-3. **Match phase labelling** → identify 1H and 2H
-4. **Active-player filtering** → `df_active` (exclude bench players)
-5. **Path segmentation** → continuous trajectories per player
-
-#### 2.3 Team Centroid
-$$\mathbf{C}(t) = \frac{1}{N(t)} \sum_{i=1}^{N(t)} \mathbf{r}_i(t)$$
-
-The centroid is the team-level analogue of an individual trajectory.
-
-#### 2.4 Collective Order Metrics
-
-**Polarisation** (main metric):
-$$p(t) = \left| \frac{1}{N(t)} \sum_{i=1}^{N(t)} \hat{\mathbf{v}}_i(t) \right|$$
-- $p \approx 1$: coordinated movement
-- $p \approx 0$: disorganised movement
-
-**Milling** (secondary):
-$$m(t) = \left| \frac{1}{N(t)} \sum_i (\hat{\boldsymbol{\rho}}_i \times \hat{\mathbf{v}}_i)_z \right|$$
-- Rotational/tangential motion
-
-#### 2.5 Run Segmentation
-Partition trajectories into **runs** using a turning-angle threshold:
-- Continue while turning angle $\theta_k < \theta_{\max}$ (default 30°)
-- Restart on sharp turns
-- Compute per-run duration $T$, arc length $L$, mean speed $\bar v = L/T$
-
-#### 2.6 Mean Squared Displacement (MSD)
-$$\text{MSD}(\tau) = \left\langle |\mathbf{r}(t+\tau) - \mathbf{r}(t)|^2 \right\rangle_t \sim \tau^\alpha$$
-
-Decomposition:
-$$\mathbf{r}_i(t) = \mathbf{C}(t) + \boldsymbol{\rho}_i(t) \Rightarrow \text{MSD} = \text{MSD}_{\text{centroid}} + \text{MSD}_{\text{relative}} + \text{cross}$$
-
-#### 2.7 Survival and Hazard Analysis
-
-**Hazard function**:
-$$h(a) = \lim_{\Delta t \to 0} \frac{P(a \leq T < a + \Delta t \mid T \geq a)}{\Delta t}$$
-
-**Inverse-age hazard model** (baseline):
-$$h_0(a) = \lambda_\infty + \frac{\mu}{a_0 + a}$$
-
-**Order-dependent hazard** (with covariates):
-$$h(a, p) = h_0(a) \exp(\beta z_p)$$
-
-where $z_p$ is z-scored polarisation.
-
----
-
-## Figures and Results
-
-### Figure 1: Schematic Workflow
-*Status: To Be Created*
-
-- Boxes: Raw GPS → Pitch coordinates → Active players → Centroid → Run segmentation → Collective order → Hazard model
-- Arrows: Information flow and data transformations
-- Inset: Example frames showing low/mid/high polarisation states
-
-**Key Message**: Football movement is a multi-scale process from individual players to team centroid.
-
----
-
-### Figure 2: Transport Phenotype
-*Notebook: `02_transport_phenotype.ipynb`*
-
-**Panels**:
-- **A**: CCDF of centroid run durations $P(T \geq t)$
-  - Log-log plot shows broad, heavy-tailed distribution
-  - Exponential fit as reference
-- **B**: CCDF of centroid run lengths $P(L \geq \ell)$
-  - Similar heavy-tail signature
-- **C**: MSD of individual players, centroid, and relative motion
-  - Log-log plot with power-law fits
-  - Extract exponents $\alpha$ for each component
-- **D**: Decomposition bar chart
-  - Fraction of player MSD explained by centroid component
-  - Supports idea that team-level transport is substantial
-
-**Key Result**: Player runs are broad-tailed and substantially driven by centroid motion.
-
----
-
-### Figure 3: Order and Transport Coupling
-*Notebook: `03_order_and_transport.ipynb`*
-
-**Panels**:
-- **A**: High-polarisation frames move faster
-  - Scatter + regression: $p(t)$ vs. $v_c(t)$
-  - Or binned means with error bars
-- **B**: CCDF of centroid run durations split by realised order (low/mid/high terciles)
-  - Low order (dashed): shorter, steeper tail
-  - High order (solid): longer, heavier tail
-- **C**: CCDF of centroid run lengths split by order
-  - Similar pattern: high order → longer runs
-- **D**: Decomposition of length difference
-  - Is it due to longer duration, higher speed, or both?
-  - Show $L = T \cdot \bar v$ panel
-
-**Key Result**: High collective order is associated with longer, more persistent centroid transport episodes.
-
----
-
-### Figure 4: Hazard Mechanism and State Dynamics
-*Notebook: `04_hazard_mechanism.ipynb`*
-
-**Panels**:
-- **A**: Empirical hazard as a function of run age
-  - Points with Poisson confidence intervals
-  - Inverse-age fit overlaid
-  - Shows decreasing hazard with age (fragile runs die early)
-- **B**: Hazard split by collective order states
-  - Low order: higher hazard (runs terminate faster)
-  - High order: lower hazard (runs persist longer)
-  - Inverse-age baseline for each state
-- **C**: Transition probability matrix among order states
-  - Heatmap or network diagram
-  - Shows persistence: diagonal blocks are large
-- **D**: Empirical vs. simulated run-duration distributions
-  - Simulate state process + age-dependent killing
-  - CCDF comparison
-  - Measures whether mechanism can explain observations
-- **E** (optional): Hazard model coefficients
-  - Hazard ratios for order and speed
-  - $HR_p < 1$ if order is protective
-  - Speed controls to show order is not just a proxy
-
-**Key Result**: Run termination depends on both age and collective order; state-dynamics model can reproduce empirical run statistics.
-
----
-
-### Figure 5: Continuous Stochastic Order Model
-*Notebook: `05_stochastic_order_model.ipynb`*
-
-**Panels**:
-- **A**: Empirical polarisation time series
-  - Show 1-2 sample runs with low/mid/high phenotypes
-  - Highlight transitions and persistence
-- **B**: Drift and diffusion of polarisation
-  - Estimated from data (e.g., Fokker-Planck style)
-  - Or fitted SDE: $dp = b(p)dt + \sigma(p)dW_t$
-- **C**: State-dependent killing rate $\phi(p)$
-  - How does hazard vary with instantaneous $p$?
-  - Expected: $\phi(p)$ decreases as $p$ increases
-- **D**: Empirical vs. simulated polarisation distributions
-  - Histogram of instantaneous $p$ values
-  - Simulated trajectories should match
-- **E**: Empirical vs. simulated run-duration distribution
-  - Final check: CCDF of $T$ from continuous model
-  - Should match Figure 4D
-
-**Key Result**: A simple stochastic model of continuous polarisation coupled to age-and-order-dependent killing reproduces observed team movement statistics.
-
----
-
-## Analysis Notebooks
-
-All notebooks live in `notebooks/`.  Run `01_data_loading.ipynb` once to populate
-`data/` caches; all other notebooks load from those caches.
-
-| Notebook | Purpose | Key outputs |
-|----------|---------|-------------|
-| [`01_data_loading.ipynb`](notebooks/01_data_loading.ipynb) | Full pipeline: GPS → active players → transport/order/hazard tables. Adds position labelling. | `runs_long`, `trajectory_long`, `msd_long`, `df_pmv`, `centroid_order_runs`, `hazard_intervals` |
-| [`02_transport_phenotype.ipynb`](notebooks/02_transport_phenotype.ipynb) | **Figure 2**: CCDF of run durations/lengths, MSD decomposition | `figures/figure2_*` |
-| [`03_order_and_transport.ipynb`](notebooks/03_order_and_transport.ipynb) | **Figure 3**: order vs speed, CCDFs by state, decomposition | `figures/figure3_*` |
-| [`04_hazard_mechanism.ipynb`](notebooks/04_hazard_mechanism.ipynb) | **Figure 4**: inverse-age hazard, Markov states, Cox model, AIC/BIC | `figures/figure4_*` |
-| [`05_stochastic_order_model.ipynb`](notebooks/05_stochastic_order_model.ipynb) | **Figure 5**: OU model, drift/diffusion, killing rate, simulation | `figures/figure5_*` |
-| [`06_robustness_checks.ipynb`](notebooks/06_robustness_checks.ipynb) | θ sensitivity, bench inclusion, cross-team, speed confounding, selection | `figures/supp_robustness_*` |
-| [`07_head_to_head_coupling.ipynb`](notebooks/07_head_to_head_coupling.ipynb) | H2H: joint polarisation, cross-correlation, distance, coupled hazard, PCA modes | `figures/supp_h2h_*` |
-
----
-
-## Key Outstanding Questions
-
-### 1. **Figure 1 Schematic**
-- [ ] Create visual workflow diagram (Inkscape or matplotlib)
-- [ ] Include example frames (low/mid/high order)
-- [ ] Explain the multi-scale nature of analysis
-
-### 2. **Robustness Checks** → `06_robustness_checks.ipynb`
-- [ ] Test sensitivity to turning-angle threshold ($\theta_{\max} = 20°, 30°, 40°$)
-  — needs per-θ caches built from notebook 01
-- [ ] Compare results with/without bench players
-- [ ] Cross-team consistency (do patterns hold across teams?)
-- [ ] Speed confounding (partial correlations) — **code complete**
-- [ ] Selection effect vs. true age-dependence — **code complete**
-
-### 3. **Head-to-Head Coupling** → `07_head_to_head_coupling.ipynb`
-- [ ] Joint polarisation correlation and cross-correlation — **code complete** (needs h2h caches)
-- [ ] Inter-team distance vs. order — **code complete**
-- [ ] Coupled hazard model (focal + opponent order) — **code complete**
-- [ ] Polarisation modes via PCA — **code complete**
-
-### 4. **Mechanistic Depth** → `04_hazard_mechanism.ipynb`
-- [ ] What drives the inverse-age hazard? Selection test — **code in 06**
-- [ ] Order state persistence times (from transition matrix diagonal) — **code complete**
-- [ ] Is speed a mediator or confounder? Cox model with controls — **code complete**
-
-### 5. **Statistical Inference** → `04_hazard_mechanism.ipynb`
-- [ ] Bootstrap CIs on hazard ratios — **TODO**
-- [ ] Formal AIC/BIC model comparison — **code complete**
-- [ ] Log-rank / KS test for CCDF separation by state — **TODO**
-
-### 6. **Data Extension** → `01_data_loading.ipynb`
-- [ ] Add 2021 season data to S3 (need match schedule)
-- [ ] Compile 4 head-to-head fixtures across 2 years
-- [ ] Add length CCDF to stochastic model comparison (notebook 05 §TODO)
-
-### 7. **Position Labelling** → `01_data_loading.ipynb`
-- [x] Add GK/DEF/MID/FWD labels from kickoff depth — **code complete**
-- [ ] Condition order–transport analyses on position group (notebook 03)
-
----
-
-## Interpretation and Theory
-
-### Core Claim
-Football team-centroid transport is **not a random walk**. It is a **collective, state-dependent survival process** where coherent team motion (high polarisation) both:
-1. Increases transport speed
-2. Suppresses run termination risk
-
-### Mechanisms
-1. **Collective order → higher speed**: Players moving together achieve more directed transport
-2. **Collective order → lower hazard**: High-order states are more stable/resistant to disruption
-3. **Selection effect**: Fragile, disorganised runs die early; survivors become biased toward stable contexts
-
-### Analogy to Animal Movement
-In animals, **Lévy flights** and **state-switching** movement emerge from environmental heterogeneity and internal state. Football teams, like biological collectives, exhibit state-dependent transport with broad tails—but are additionally constrained by **tactics and team structure**.
-
----
-
-## Limitations and Caveats
-
-1. **$p_{\text{mean}}$ is retrospective**: Run-average polarisation describes observed phenotype but should not be used as a predictive variable. Use $p_{\text{start}}$, $p_{\text{early}}$, or strictly-past rolling averages instead.
-
-2. **Speed and order are confounded**: High-order teams tend to move faster. Hazard models should include speed controls.
-
-3. **Run segmentation is threshold-dependent**: Results depend on the turning-angle threshold. Robustness checks are essential.
-
-4. **Head-to-head analysis is exploratory**: Only a subset of matches have both teams tracked. Opponent effects should be reported separately.
-
-5. **Causality is inferred, not proven**: The model shows that order correlates with survival, not that order *causes* survival. Alternative explanations (e.g., external pressure, tactical setup) cannot be ruled out.
-
----
-
-## Code and Data Organization
-
-```
+```text
 analysis/levy_paper/
-├── README.md               (this file — overview and outstanding TODOs)
-├── docs/
-│   ├── paper_skeleton.md   (full paper draft skeleton with section outlines)
-│   └── figures_guide.md    (per-panel documentation: purpose, design, questions)
-├── notebooks/
-│   ├── 01_data_loading.ipynb           (pipeline → cache)
-│   ├── 02_transport_phenotype.ipynb    (Figure 2)
-│   ├── 03_order_and_transport.ipynb    (Figure 3)
-│   ├── 04_hazard_mechanism.ipynb       (Figure 4)
-│   ├── 05_stochastic_order_model.ipynb (Figure 5)
-│   ├── 06_robustness_checks.ipynb      (Supplementary robustness)
-│   └── 07_head_to_head_coupling.ipynb  (Supplementary H2H)
-├── util/
-│   ├── paper_utils.py      (shared constants, plotting helpers, cache I/O)
-│   └── __init__.py
-├── figures/                (output: PNG + PDF — gitignored)
-└── data/                   (parquet caches — gitignored)
+  notebooks_publication/     collaborator-facing notebooks for Figures 1-5 and supplement
+  notebooks/                 ignored local/development notebooks not used as the public run path
+  scripts/                   reusable cache and figure builders
+  util/                      paper-specific plotting/loading helpers
+  data/                      local processed caches; large files are not tracked
+  figures/
+    main_figures/            current manuscript/candidate figures, PNG and PDF
+    supplementary_material/  formal supplement package: Figures S1-S2, Tables S1-S4 and source data
+    supplementary_figures/   supplementary figures, PNG and PDF
+    source_data/             small CSV/JSON/MD source data and audits
+  outputs/final/             full generated figure-output trees
+  reports/                   cleanup, methods and reproducibility reports
+  archive/                   old exploratory outputs retained locally
 ```
 
-### Shared utilities (`util/paper_utils.py`)
+## Run Order
 
-| Symbol | Type | Description |
-|--------|------|-------------|
-| `THETA_DEG` | int | Turning-angle threshold (30°) |
-| `STATE_LABELS` | list | `["low", "mid", "high"]` |
-| `STATE_COLORS` | dict | Colour-blind friendly palette per state |
-| `DATA_DIR` | Path | `../data/` |
-| `FIGURES_DIR` | Path | `../figures/` |
-| `configure_paper_plotting()` | fn | Set Matplotlib rcParams for publication |
-| `plot_ccdf(ax, values, ...)` | fn | Log-log CCDF with optional exp. reference |
-| `plot_ccdf_by_state(ax, df, ...)` | fn | CCDF split by order state |
-| `plot_msd(ax, tau, msd, ...)` | fn | MSD with power-law fit |
-| `plot_hazard(ax, age, h, ...)` | fn | Hazard plot with inverse-age fit (SSE, Nelder-Mead) |
-| `plot_state_transition_matrix(ax, P)` | fn | Heatmap of Markov matrix |
-| `save_cache(df, name)` | fn | Save parquet to `data/` |
-| `load_cache(name)` | fn | Load parquet from `data/` |
-| `save_figure(fig, name)` | fn | Save PDF + PNG to `figures/` |
-| `assign_order_state(p)` | fn | Bin polarisation into state labels |
+Run publication notebooks from the repository root or from their own folder after
+installing dependencies from `requirements.txt`.
+Use `requirements-lock.txt` when an exact match to the final checked Python 3.11
+environment is required.
 
----
+1. `notebooks_publication/00_data_access_and_cache.ipynb`
+   - Selects seasons, tracked sources and optional exact match dates.
+   - Previews schedules, pitch metadata and local processed caches.
+   - Provides an explicit opt-in cell for rebuilding caches from AWS/S3.
+   - Defaults to an AWS-free GitHub mode.
 
-## Contact and Citation
+2. `notebooks_publication/01_figure1_transport_mechanism.ipynb`
+   - Rebuilds Figure 1 from the trajectory/run/order cache, with frozen fallback.
 
-**Authors**: [Your names]  
-**Journal**: [Target venue]  
-**Date**: June 2026  
+3. `notebooks_publication/02_figure2_transport_phenotype.ipynb`
+   - Computes the survivor, MSD and decomposition panels and builds Figure 2.
 
-If using this analysis or data, please cite:  
-> [Full citation TBD]
+4. `notebooks_publication/03_figure3_order_transport.ipynb`
+   - Computes order terciles, bootstrap survivors and builds Figure 3.
 
----
+5. `notebooks_publication/04_figure4_killed_transport.ipynb`
+   - Builds Figure 4 from exact cross-fitted panel tables; refitting is optional.
 
-## Revision History
+6. `notebooks_publication/05_figure5_state_structured_survival.ipynb`
+   - Builds Figure 5 from cross-fitted transition and survivor tables.
 
-- **2026-06-02**: Initial structure and figure skeleton created
-- **2026-06-02**: Branch `feature/dg/levy_paper_analysis_dg` — full refactor:
-  - All notebooks created under `notebooks/` (01–07)
-  - Shared `util/paper_utils.py` with constants, plotting, cache helpers
-  - Paper skeleton and figures guide in `docs/`
-  - Outstanding TODOs tracked in README §Key Outstanding Questions
-  - New analyses: position labelling (01), robustness suite (06), H2H coupling (07)
-- **2026-06-04**: Post-refactor fixes and first full pipeline run:
-  - `player_map.json` populated with 40 player UUID-to-name mappings (TeamA/TeamB)
-  - `paper_utils.py` `plot_hazard()`: inverse-age fitting switched from MLE to SSE
-  - `04_hazard_mechanism.ipynb`: `age_bin` column added; Cox model skip guard; improved diagnostics
-  - `06_robustness_checks.ipynb`: fixed column names (`length_m`→`run_length_m`, `speed_mps`→`v_mean_mps`)
-  - `05_stochastic_order_model.ipynb`: simplified panel A polarisation time series selection
-  - Pipeline run: 17 matches loaded, 18,021 centroid runs, 89,947 PMV rows, 2 H2H fixtures
+7. `notebooks_publication/06_supplementary_material.ipynb`
+   - Rebuilds the formal supplementary figures from tracked source tables.
+
+The public figure run path is `notebooks_publication/`. Lower-level working
+notebooks under `notebooks/` are not required for a new collaborator to inspect
+or reproduce the paper figures. The scripted AWS rebuild entry point is
+`scripts/build_multiseason_data_cache.py`.
+
+## Main Scripts
+
+These scripts are the stable programmatic entry points behind the notebooks:
+
+- `scripts/build_multiseason_data_cache.py`
+- `scripts/build_figure4_figure5_model_cache.py`
+- `scripts/reproduce_publication.py`
+- `scripts/create_real_match_transport_mechanism_4panel.py`
+- `scripts/create_figure2_transport_phenotype.py`
+- `scripts/create_final_figure2_transport_phenotype.py`
+- `scripts/create_final_figure3_order_transport.py`
+- `scripts/create_final_fig4_fig5_polished.py`
+- `scripts/create_supplementary_figures_from_source.py`
+- `scripts/run_pre_submission_robustness_audit.py`
+- `scripts/sync_final_figures.py`
+- `scripts/sync_formal_supplementary_material.py`
+- `scripts/sanitize_publication_metadata.py`
+- `scripts/check_publication_reproducibility.py`
+- `scripts/create_publication_reproduction_notebooks.py`
+
+## Data And Cache Policy
+
+Raw tracking files and large processed caches are not tracked in Git.
+
+The intended public/reviewer clone contains enough material to inspect the
+paper outputs and source-data audits, but not enough to rerun the expensive
+raw-data processing. Exact computational regeneration without AWS requires the
+optional processed-cache bundle listed in:
+
+```text
+data/cache_bundle_manifest.csv
+```
+
+Tracked or intended-to-track small reproducibility inputs:
+
+- `metadata/pitches/toppserien_pitches.json`
+- `metadata/pitches/README.md`
+- `metadata/schedules/README.md`
+- `data/cache_bundle_manifest.csv`
+- figure manifests and source-data CSVs under `figures/source_data/`
+- frozen publication figures under `figures/main_figures/`
+- formal supplement assets under `figures/supplementary_material/`
+
+Ignored local/heavy files:
+
+- `.env`
+- raw AWS/S3 data
+- large parquet caches under `data/processed/`
+- generated video files
+- exploratory archived outputs
+
+To rebuild the full analysis from raw data, a collaborator needs:
+
+- Python dependencies from `requirements.txt`
+- access to the Soccermon/AWS data source
+- a local `.env` file with credentials
+- local NFF schedule exports at the paths documented in
+  `metadata/schedules/README.md`
+- the tracked pitch registry above
+
+To inspect/reproduce the submitted figure files without AWS, a collaborator
+only needs the Git-tracked assets under:
+
+```text
+figures/main_figures/
+figures/supplementary_material/
+figures/source_data/
+notebooks_publication/
+```
+
+This GitHub-only route displays and audits the frozen outputs. It does not
+recompute player filtering, run segmentation, model fitting, or cross-fitted
+validation from raw tracking data.
+
+To recompute figure outputs from processed run/interval tables without AWS, a
+collaborator needs the primary processed cache bundle corresponding to:
+
+```text
+data/processed/all_team_2020_2021_sticky_active/
+```
+
+The Figure 4/5 model cache is derived from the primary hazard-interval parquet
+by `scripts/build_figure4_figure5_model_cache.py`; it no longer has to be
+supplied as an independent external input.
+
+Full cache-mode reproduction:
+
+```powershell
+.\.venv\Scripts\python.exe analysis\levy_paper\scripts\reproduce_publication.py --mode cache
+```
+
+The current final all-team cache contains:
+
+- 66 source/team match records
+- 62 competitive fixtures across 47 match dates
+- 69,802 centroid runs
+- 355,330 one-second hazard intervals
+
+Run the reproducibility check after cloning or after moving cache bundles:
+
+```powershell
+.\.venv\Scripts\python.exe analysis\levy_paper\scripts\check_publication_reproducibility.py
+```
+
+## Final Figure Locations
+
+Use these folders for sharing:
+
+```text
+figures/main_figures/
+figures/supplementary_material/
+figures/source_data/
+```
+
+The figure manifest is:
+
+```text
+figures/figure_manifest.csv
+```
+
+The current manuscript core is Figures 1-5. State-structured survival outputs
+are retained in the final figure folder and formal supplementary material.
+
+## Notes For New Users
+
+- Start by opening `notebooks_publication/00_data_access_and_cache.ipynb`.
+- If processed caches are already present, downstream figure notebooks can be
+  run without accessing AWS.
+- If a cache is missing, rebuild through `notebooks_publication/00_data_access_and_cache.ipynb`
+  or `scripts/build_multiseason_data_cache.py`.
+- Do not commit `.env` or raw tracking data.
+- Do not commit the local NFF schedule exports.
+- Keep new exploratory outputs in `outputs/` or `archive/`, not in the final
+  figure folders, until they are promoted.
+- See the root `DATA_AND_ASSET_LICENSING.md` for code, figure, Soccermon, NFF,
+  and OpenStreetMap licensing boundaries.

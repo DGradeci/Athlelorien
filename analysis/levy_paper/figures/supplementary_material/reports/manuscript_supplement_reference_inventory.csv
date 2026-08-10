@@ -1,0 +1,19 @@
+file,line_number,exact_matched_text,reference_target
+analysis/levy_paper/final_freeze_2026-07-30/tables/tableS2_models_and_robustness_final.tex,3,\label{tab:S2_models_robustness},Figure S2 LaTeX environment
+analysis/levy_paper/minimal_final_supplement_2026-07-28/tables/tableS2_models_and_robustness.tex,3,\label{tab:s2_models_robustness},Figure S2 LaTeX environment
+analysis/levy_paper/supplement_minimal_final_2026-07-29/manuscript_speed_adjusted_result_patch.tex,7,Figure S2,Figure S2
+analysis/levy_paper/supplement_minimal_final_2026-07-29/manuscript_speed_adjusted_result_patch.tex,7,Figure S2,Figure S2 caption
+analysis/levy_paper/supplement_minimal_final_2026-07-29/supplement_minimal.tex,4,Figure S1,Figure S1
+analysis/levy_paper/supplement_minimal_final_2026-07-29/supplement_minimal.tex,7,Figure S2,Figure S2
+analysis/levy_paper/supplement_minimal_final_2026-07-29/supplement_minimal.tex,7,Figure S2,Figure S2 caption
+analysis/levy_paper/supplement_minimal_final_2026-07-29/supplement_minimal.tex,10,Figure S2,Figure S2
+analysis/levy_paper/supplement_minimal_final_2026-07-29/supplement_minimal.tex,10,Figure S2,Figure S2 caption
+analysis/levy_paper/supplement_minimal_final_2026-07-29/supplement_minimal.tex,11,Figure S2,Figure S2
+analysis/levy_paper/supplement_minimal_final_2026-07-29/supplement_minimal.tex,11,Figure S2,Figure S2 caption
+analysis/levy_paper/supplement_minimal_final_2026-07-29/supplement_minimal.tex,13,Figure S2,Figure S2
+analysis/levy_paper/supplement_minimal_final_2026-07-29/supplement_minimal.tex,13,Figure S2,Figure S2 caption
+analysis/levy_paper/supplement_minimal_final_2026-07-29/tables/tableS2_models_and_robustness_final.tex,3,\label{tab:s2_models_robustness},Figure S2 LaTeX environment
+final_code_audit/manuscript_speed_result_patch.tex,5,Figure S2,Figure S2
+final_code_audit/manuscript_speed_result_patch.tex,5,Figure S2,Figure S2 caption
+outputs/minimal_final_supplement_2026-07-28/tables/tableS2_models_and_robustness.tex,3,\label{tab:s2_models_robustness},Figure S2 LaTeX environment
+release_candidate_2026-07-29/submission_packages/npj_complexity/tables/tableS2_models_and_robustness_final.tex,3,\label{tab:s2_models_robustness},Figure S2 LaTeX environment

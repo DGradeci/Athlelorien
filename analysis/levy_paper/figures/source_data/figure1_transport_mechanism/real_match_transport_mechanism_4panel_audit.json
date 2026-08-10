@@ -1,0 +1,194 @@
+{
+  "match_id": "2021-10-16",
+  "match_phase": "2H",
+  "team": "rosenborg",
+  "source_key": "A",
+  "t0": "2021-10-16T16:00:00",
+  "t1": "2021-10-16T16:00:20",
+  "n_players": 11,
+  "centroid_displacement_m": 23.47136048000991,
+  "selection_score": 25.12136048000991,
+  "n_players_plotted": 11,
+  "n_active_state_players": 11,
+  "n_bench_state_players": 6,
+  "n_rejected_hoverer_players": 0,
+  "active_player_method": "sticky_hierarchical_active_xi",
+  "panel_A_state_source": "analysis/levy_paper/data/active_filter_tuning_raw_cache/2021_2021-10-16_A_1hz.parquet",
+  "n_bench_markers": 6,
+  "stadium_name": "Klepp Stadion",
+  "home": "Klepp",
+  "away": "Rosenborg",
+  "score": "0 - 3",
+  "window_duration_s": 20,
+  "active_depth_m": 6.0,
+  "panel_mapping": "A=real 20s match trajectories with active/bench zones; B=clean real centroid sequence partitioned into angle-defined runs; C=short polarisation time profile with embedded real high/low formation insets",
+  "pitch_style": "panel A uses bright active-zone green and red bench strip; B uses neutral pitch; C uses formation-only insets without mini-pitches",
+  "panel_A_style": "bright active/bench pitch fill, sticky-hierarchical active-XI state, actual bench/excluded markers from raw labelled state when available, muted centroid accent",
+  "panel_B": {
+    "match_id": "2021-05-29",
+    "match_phase": "1H",
+    "team": "rosenborg",
+    "source_key": "A",
+    "t_start": "2021-05-29T16:25:08",
+    "t_end": "2021-05-29T16:26:07",
+    "n_runs_shown": 4,
+    "turn_threshold_deg": 30.0,
+    "angle_definition": "local end tangent of previous run vs local start tangent of next run",
+    "local_tangent_samples": 4,
+    "segments": [
+      {
+        "run_number": 1,
+        "run_uid": "match=2021-05-29__phase=1H__team=rosenborg__source=A__type=centroid__player=__centroid____path=centroid_path__match=2021-05-29__phase=1H__team=rosenborg__source=A__p=0__run=299",
+        "t_start": "2021-05-29T16:25:08",
+        "t_end": "2021-05-29T16:25:38",
+        "duration_s": 30.0,
+        "run_length_m": 72.95883926421646
+      },
+      {
+        "run_number": 2,
+        "run_uid": "match=2021-05-29__phase=1H__team=rosenborg__source=A__type=centroid__player=__centroid____path=centroid_path__match=2021-05-29__phase=1H__team=rosenborg__source=A__p=0__run=300",
+        "t_start": "2021-05-29T16:25:38",
+        "t_end": "2021-05-29T16:25:44",
+        "duration_s": 6.0,
+        "run_length_m": 7.0053805215643115
+      },
+      {
+        "run_number": 3,
+        "run_uid": "match=2021-05-29__phase=1H__team=rosenborg__source=A__type=centroid__player=__centroid____path=centroid_path__match=2021-05-29__phase=1H__team=rosenborg__source=A__p=0__run=301",
+        "t_start": "2021-05-29T16:25:44",
+        "t_end": "2021-05-29T16:25:55",
+        "duration_s": 11.0,
+        "run_length_m": 27.74947259809282
+      },
+      {
+        "run_number": 4,
+        "run_uid": "match=2021-05-29__phase=1H__team=rosenborg__source=A__type=centroid__player=__centroid____path=centroid_path__match=2021-05-29__phase=1H__team=rosenborg__source=A__p=0__run=302",
+        "t_start": "2021-05-29T16:25:55",
+        "t_end": "2021-05-29T16:26:07",
+        "duration_s": 12.0,
+        "run_length_m": 32.722160925370034
+      }
+    ],
+    "turns": [
+      {
+        "boundary_after_run": 1,
+        "turn_angle_deg": 98.21862345691106,
+        "angle_definition": "local end tangent of previous run vs local start tangent of next run"
+      },
+      {
+        "boundary_after_run": 2,
+        "turn_angle_deg": 40.22925331526399,
+        "angle_definition": "local end tangent of previous run vs local start tangent of next run"
+      },
+      {
+        "boundary_after_run": 3,
+        "turn_angle_deg": 172.33029008813168,
+        "angle_definition": "local end tangent of previous run vs local start tangent of next run"
+      }
+    ]
+  },
+  "panel_C_selection_key": {
+    "match_id": "2021-10-16",
+    "match_phase": "2H",
+    "team": "rosenborg",
+    "source_key": "A"
+  },
+  "panel_B_preselected_window": "2021-05-29T16:25:08 to 2021-05-29T16:26:07",
+  "panel_C": {
+    "match_id": "2021-10-16",
+    "match_phase": "2H",
+    "team": "rosenborg",
+    "source_key": "A",
+    "profile_start": "2021-10-16T16:00:34",
+    "profile_end": "2021-10-16T16:01:40",
+    "n_profile_samples": 67,
+    "snapshots": {
+      "low": {
+        "match_id": "2021-10-16",
+        "match_phase": "2H",
+        "team": "rosenborg",
+        "source_key": "A",
+        "t": "2021-10-16T16:01:25",
+        "future_t": "2021-10-16T16:01:33",
+        "p_group": 0.12439673233232522,
+        "n_players": 11,
+        "future_disp_m": 6.47379700550905,
+        "players_plotted": 11
+      },
+      "high": {
+        "match_id": "2021-10-16",
+        "match_phase": "2H",
+        "team": "rosenborg",
+        "source_key": "A",
+        "t": "2021-10-16T16:00:49",
+        "future_t": "2021-10-16T16:00:57",
+        "p_group": 0.9455648708082949,
+        "n_players": 11,
+        "future_disp_m": 23.87495455228805,
+        "players_plotted": 11
+      }
+    }
+  },
+  "neutral_pitch_panels": "B uses neutral pitch styling; C snapshots are embedded formation-only insets",
+  "panel_C_player_traces": "player direction arrows use one-step unit displacements ending at the marked frame, matching the polarisation definition",
+  "panel_C_formation_inset_expand": 1.95,
+  "panel_C_future_centroid_arrow_s": 8,
+  "panel_C_centroid_arrow_length_m": 52.0,
+  "panel_C_inset_bounds": {
+    "high": [
+      0.085,
+      0.02,
+      0.3,
+      0.53
+    ],
+    "low": [
+      0.795,
+      0.075,
+      0.225,
+      0.51
+    ]
+  },
+  "panel_C_profile_context_s": 15,
+  "panel_C_profile_rolling_window_s": 8,
+  "panel_C_centroid_player_min_sep_m": 16.0,
+  "panel_C_player_arrow_min_sep_m": 28.0,
+  "panel_C_player_arrow_spread_iter": 60,
+  "panel_C_connector_lw": 0.85,
+  "panel_C_connector_alpha": 0.9,
+  "figure_text": {
+    "figure_caption": "Figure 1. Real-match schematic of player trajectories, centroid-run segmentation, and collective polarisation.",
+    "panel_a_caption": "Real 20 s player and centroid trajectories with active and bench-player states.",
+    "panel_b_caption": "Real centroid trajectory partitioned into runs at large changes in direction.",
+    "panel_c_caption": "Polarisation time profile with high- and low-polarisation formation snapshots.",
+    "panel_a_letter": "A.",
+    "panel_b_letter": "B.",
+    "panel_c_letter": "C.",
+    "panel_a_player_trajectories_label": "Player trajectories",
+    "panel_a_centroid_trajectory_label": "Centroid trajectory",
+    "panel_a_bench_players_label": "Bench players",
+    "panel_b_run_label_template": "run {n}",
+    "panel_b_start_label": "start",
+    "panel_b_end_label": "end",
+    "panel_b_angle_label_template": "$\\Delta\\theta={angle:.0f}^\\circ>\\theta_c$",
+    "panel_b_title": "centroid run partition",
+    "panel_c_iqr_label_template": "Local variability ({window_s} s IQR)",
+    "panel_c_raw_label": "Polarisation trajectory",
+    "panel_c_player_direction_label": "Player direction",
+    "panel_c_centroid_direction_label": "Centroid direction",
+    "panel_c_low_centroid_direction_label": "Centroid direction (low p)",
+    "panel_c_high_centroid_direction_label": "Centroid direction (high p)",
+    "panel_c_xlabel_template": "Time from kick-off (s)",
+    "panel_c_ylabel": "Polarisation $p(t)$",
+    "panel_c_title": "polarisation time profile with matched real frames",
+    "panel_c_snapshot_label_template": "{state} frame\np={p:.3f}",
+    "panel_c_inset_title_template": "{state}-polarisation frame",
+    "panel_c_profile_inset_xlabel": "s",
+    "panel_c_profile_inset_ylabel": "p",
+    "panel_c_profile_inset_title": "polarisation profile",
+    "legacy_higher_polarisation_title": "higher polarisation",
+    "legacy_lower_polarisation_title": "lower polarisation",
+    "legacy_run_segmentation_title": "run segmentation"
+  },
+  "figure_caption": "Figure 1. Real-match schematic of player trajectories, centroid-run segmentation, and collective polarisation.\nA. Real 20 s player and centroid trajectories with active and bench-player states.\nB. Real centroid trajectory partitioned into runs at large changes in direction.\nC. Polarisation time profile with high- and low-polarisation formation snapshots.",
+  "style_source": "analysis.levy_paper.util.paper_utils.configure_paper_plotting"
+}

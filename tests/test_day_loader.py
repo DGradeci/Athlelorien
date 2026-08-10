@@ -6,8 +6,8 @@ import fsspec
 import pytest
 from pathlib import Path
 
-from utils.day_loader import DayDataLoader
-from utils.player_utils import PlayerNameMapper
+from src.utils.day_loader import DayDataLoader
+from src.utils.player_utils import PlayerNameMapper
 
 
 @pytest.fixture
