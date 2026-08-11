@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-07-21T15:24:40",
+  "layout_source_script": "analysis/levy_paper/archive/2026-07-16_repo_cleanup/analysis/levy_paper/scripts/create_figure4_revision_v24.py",
+  "main_4panel_pdf": "analysis/levy_paper/figures/2026-07-15_fig4_smooth_late_ramp_v25/main/figure4_tempered_survival_revision_v25_main_4panel.pdf",
+  "main_4panel_png": "analysis/levy_paper/figures/2026-07-15_fig4_smooth_late_ramp_v25/main/figure4_tempered_survival_revision_v25_main_4panel.png",
+  "main_panels": {
+    "A": "Age-structured termination hazard with smooth late-ramp full model",
+    "B": "Order state modulates killing",
+    "C": "Tempered survival reconstruction with smooth late-ramp model",
+    "D": "State exposure of long survivors"
+  },
+  "moved_to_supplement": {
+    "old_C": "Residual tail attenuation",
+    "old_D": "Boundary/spatial constraint"
+  },
+  "output_version": "v25",
+  "panel_A_display_reliable_max_age_s": 35.0,
+  "panel_A_display_reliable_rule": "black filled bins require non-sparse support and age_right <= 35 s",
+  "panel_B_ylim": [
+    0.0,
+    0.2593087460238097
+  ],
+  "panel_E_original_info": {
+    "empirical_display_point_step_s": 3.0,
+    "empirical_points_displayed": 20,
+    "empirical_positive_points_in_view": 60,
+    "horizontal_resolution_line_removed": true,
+    "omitted_right_edge_empirical_duration_s": 60.0
+  },
+  "panel_E_ylim": [
+    1e-05,
+    1.05
+  ],
+  "source_script": "analysis/levy_paper/scripts/create_figure4_smooth_late_ramp_v25.py",
+  "tail_spec": {
+    "delta": 10.074864751764416,
+    "display_label": "smooth late crossover",
+    "fallback_note": "",
+    "hazard_form": "smooth_saturating_late_ramp",
+    "q": 0.0564826228625105,
+    "tau_q": 10.074864751764416,
+    "tc": 20.967386784775137,
+    "uses_hard_approximation": false,
+    "uses_smooth_ramp": true
+  }
+}

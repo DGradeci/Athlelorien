@@ -1,0 +1,56 @@
+{
+  "full_layout_pdf": "analysis/levy_paper/figures/2026-07-15_fig4_smooth_late_ramp_v25/main/figure4_tempered_survival_revision_v25_full.pdf",
+  "full_layout_png": "analysis/levy_paper/figures/2026-07-15_fig4_smooth_late_ramp_v25/main/figure4_tempered_survival_revision_v25_full.png",
+  "generated_at": "2026-07-16T14:34:14",
+  "layout_source_script": "analysis/levy_paper/scripts/create_figure4_revision_v24.py",
+  "main_info": {
+    "boundary_high_low_ratio": 2.3476935436667565,
+    "panel_E_info": {
+      "horizontal_resolution_line_removed": true,
+      "omitted_right_edge_empirical_duration_s": 60.0
+    },
+    "panel_E_ylim": [
+      1e-05,
+      1.05
+    ],
+    "selected_boundary_model": "A_linear_multiplier"
+  },
+  "output_version": "v25",
+  "panel_A_model": "smooth saturating late ramp interval probabilities averaged over actual at-risk records",
+  "panel_C_support_info": {
+    "failed_support_x_values_between_0_and_30": [],
+    "fit_duration_max": 51.0,
+    "fit_duration_min": 21.0,
+    "fit_rule": "0 <= x <= 30, S_emp>0, S_broad>0, finite residual",
+    "fit_x_max": 30.0,
+    "fit_x_min": 0.0,
+    "included_below_previous_support_x_values": [],
+    "requested_fit_x_max": 30.0,
+    "requested_fit_x_max_included": true,
+    "support_rule": "support_flag marks at_risk >= 30; v24 fit includes finite points through 30s per revision request"
+  },
+  "panel_E_model": "same smooth saturating late ramp interval probabilities as Panel A",
+  "panel_F_update": "unchanged because additive late term is state-independent",
+  "panels_preserved_from_v24": [
+    "B",
+    "C",
+    "D",
+    "F"
+  ],
+  "panels_updated_with_v25_smooth_ramp": [
+    "A",
+    "E"
+  ],
+  "source_script": "analysis/levy_paper/scripts/create_figure4_smooth_late_ramp_v25.py",
+  "tail_spec": {
+    "delta": 10.074864751764416,
+    "display_label": "smooth late crossover",
+    "fallback_note": "",
+    "hazard_form": "smooth_saturating_late_ramp",
+    "q": 0.0564826228625105,
+    "tau_q": 10.074864751764416,
+    "tc": 20.967386784775137,
+    "uses_hard_approximation": false,
+    "uses_smooth_ramp": true
+  }
+}

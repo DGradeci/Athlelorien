@@ -1,0 +1,28 @@
+{
+  "bootstrap_B": 500,
+  "bootstrap_seed": 20260718,
+  "cluster_cols": [
+    "season",
+    "match_id",
+    "team"
+  ],
+  "created_files": [
+    "analysis/levy_paper/outputs/final/figure3_order_transport/figure3_three_panel_candidate_house_style_cluster_bootstrap.png",
+    "analysis/levy_paper/outputs/final/figure3_order_transport/figure3_three_panel_candidate_house_style_cluster_bootstrap.pdf",
+    "analysis/levy_paper/outputs/final/figure3_order_transport/figure3_three_panel_candidate_house_style_cluster_bootstrap_ccdf_audit.csv"
+  ],
+  "layout": "compact house-style two panels on top, normal-width order-speed phenotype centered below",
+  "n_clusters": 66,
+  "n_runs": 69452,
+  "panel_A": "duration_s CCDF by p_early_3s tercile",
+  "panel_B": "run_length_m CCDF by p_early_3s tercile",
+  "panel_C": {
+    "colour": "median duration_s capped at 60 s",
+    "state_arrows": "terciles of p_mean",
+    "x": "p_mean, whole-run mean polarisation",
+    "y": "v_mean_mps, whole-run mean centroid speed"
+  },
+  "source_cache": "analysis/levy_paper/data/processed/all_team_2020_2021_sticky_active/centroid_order_runs_2020_2021_all_teams_pitchfix_sticky_active.parquet",
+  "style_reference": "Figure 2/4 panel-title grammar with compact spacing and in-panel legend",
+  "uncertainty_style": "95% cluster bootstrap confidence bands over match-team clusters"
+}

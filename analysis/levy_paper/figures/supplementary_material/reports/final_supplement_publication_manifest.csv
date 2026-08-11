@@ -1,0 +1,7 @@
+item_id,item_type,path,publication_facing
+Figure S1,figure,analysis/levy_paper/figures/supplementary_material/figures/figureS1_duration_model_comparison.png,True
+Figure S2,figure,analysis/levy_paper/figures/supplementary_material/figures/figureS2_segmentation_robustness_final.png,True
+Table S1,table,analysis/levy_paper/figures/supplementary_material/tables/tableS1_dataset_processing_final.csv,True
+Table S2,table,analysis/levy_paper/figures/supplementary_material/tables/tableS2_models_and_robustness_final.csv,True
+Table S3,table,analysis/levy_paper/figures/supplementary_material/tables/tableS3_transition_matrices_final.csv,True
+Table S4,table,analysis/levy_paper/figures/supplementary_material/tables/tableS4_active_player_reconstruction_parameters.csv,True

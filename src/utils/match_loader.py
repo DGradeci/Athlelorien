@@ -148,7 +148,7 @@ class MatchesLoader:
 
     Usage
     -----
-    loader = MatchesLoader("path/to/kamper.xlsx")
+    loader = MatchesLoader("analysis/levy_paper/metadata/schedules/kamper_2020.xlsx")
     matches = loader.load()
     """
 
@@ -189,7 +189,7 @@ class MatchesLoader:
         Load and normalise the matches table.
 
         Returns a DataFrame with columns:
-        ['date', 'time', 'home', 'away', 'score']
+        ['date', 'time', 'home', 'away', 'score', 'stadium']
         """
         raw = self._load_raw()
 
@@ -231,6 +231,7 @@ class MatchesLoader:
         away_col = _guess_col(raw, [r"(bortelag|away|gjestelag|lagb|lag2)$"])
         match_col = _guess_col(raw, [r"(kamp|match|oppgjor|oppgjr)$"])
         score_col = _guess_col(raw, [r"(resultat|score|sluttresultat)$"])
+        stadium_col = _guess_col(raw, [r"(bane|stadium|arena|venue|anlegg)$"])
 
         date_s = raw[date_col] if date_col else pd.Series([""] * len(raw))
         time_s = raw[time_col] if time_col else None
@@ -260,6 +261,11 @@ class MatchesLoader:
         else:
             sc_txt = pd.Series([""] * len(raw))
 
+        if stadium_col:
+            stadium = raw[stadium_col].astype(str).map(_clean_str)
+        else:
+            stadium = pd.Series([""] * len(raw))
+
         sc = sc_txt.str.extract(r"^\s*(\d+)\s*[-:\.]\s*(\d+)\s*$")
         score = (sc[0].fillna("") + "-" + sc[1].fillna("")).str.strip("-")
 
@@ -272,6 +278,7 @@ class MatchesLoader:
                 "home": home.map(_clean_str),
                 "away": away.map(_clean_str),
                 "score": score.map(_clean_str),
+                "stadium": stadium.map(_clean_str),
             }
         )
 

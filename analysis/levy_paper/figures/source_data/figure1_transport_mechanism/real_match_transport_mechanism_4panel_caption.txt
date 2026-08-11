@@ -1,0 +1,4 @@
+Figure 1. Real-match schematic of player trajectories, centroid-run segmentation, and collective polarisation.
+A. Real 20 s player and centroid trajectories with active and bench-player states.
+B. Real centroid trajectory partitioned into runs at large changes in direction.
+C. Polarisation time profile with high- and low-polarisation formation snapshots.

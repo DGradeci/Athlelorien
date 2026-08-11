@@ -1,0 +1,26 @@
+{
+  "boundary_high_low_ratio": 2.3476935436667565,
+  "generated_at": "2026-07-21T14:41:39",
+  "layout_source_script": "analysis/levy_paper/archive/2026-07-16_repo_cleanup/analysis/levy_paper/scripts/create_figure4_revision_v24.py",
+  "output_version": "v25",
+  "panel_C_support_info": {
+    "failed_support_x_values_between_0_and_30": [],
+    "fit_duration_max": 51.0,
+    "fit_duration_min": 21.0,
+    "fit_rule": "0 <= x <= 30, S_emp>0, S_broad>0, finite residual",
+    "fit_x_max": 30.0,
+    "fit_x_min": 0.0,
+    "included_below_previous_support_x_values": [],
+    "requested_fit_x_max": 30.0,
+    "requested_fit_x_max_included": true,
+    "support_rule": "support_flag marks at_risk >= 30; v24 fit includes finite points through 30s per revision request"
+  },
+  "selected_boundary_model": "A_linear_multiplier",
+  "source_script": "analysis/levy_paper/scripts/create_figure4_smooth_late_ramp_v25.py",
+  "supplement_panels": {
+    "A": "Residual tail attenuation",
+    "B": "Boundary/spatial constraint"
+  },
+  "supplement_pdf": "analysis/levy_paper/figures/2026-07-15_fig4_smooth_late_ramp_v25/supplement/figure4_supp_tail_boundary_diagnostics_v25.pdf",
+  "supplement_png": "analysis/levy_paper/figures/2026-07-15_fig4_smooth_late_ramp_v25/supplement/figure4_supp_tail_boundary_diagnostics_v25.png"
+}
