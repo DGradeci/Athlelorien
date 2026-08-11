@@ -1,0 +1,34 @@
+parameter_or_rule,value,role
+ACTIVE_PLAYER_METHOD,sticky_hierarchical_active_xi,Production active-player method
+ACTIVE_DEPTH_M,6.0 m,"Interior active-zone threshold, d_i >= 6"
+ACTIVATE_S,70 s,Preliminary geometry bench-to-active persistence
+BENCH_OFF_S,110 s,Preliminary geometry active-to-bench persistence
+MAX_ACTIVE_PLAYERS,11,Final selected active-set cap
+on_pitch_eps_m,0.1 m,On-pitch geometry threshold
+likelihood_window_s,45.0,Rolling recent-motion sample window
+seed_window_s,120.0 s,"Initial-XI seed window, inclusive at both ends"
+seed_top_n,11,Number of initial seed players
+position_margin_m,5.0 m,Soft outside-pitch candidate margin
+coordinate_sanity_margin_m,30.0 m,Hard outside-pitch coordinate sanity gate
+replacement_confirm_s,35.0 s,Challenger persistence before replacement
+weak_confirm_s,35.0 s,Weak selected-player persistence before replacement eligibility
+switch_margin,0.75 score units,Challenger base-score margin over weakest selected player
+weak_score_threshold,1.6 score units,Base-score threshold for weak selected-player counter
+seed_bonus,0.35,Base-score bonus for seed-XI membership
+continuity_bonus,2.50,Hierarchical-score bonus for previous active membership
+movement_weight,0.10,Weight on recent path length in metres
+depth_weight,0.025,Weight on non-negative pitch depth in metres
+geometry_active_bonus,0.25,Base-score bonus for preliminary geometry-active state
+in_zone_bonus,0.20,"Base-score bonus for d_i >= 6 m"
+velocity_coherence_weight,1.50,Base-score weight on velocity coherence
+velocity_top_k,7,Number of largest directional cosines used for coherence
+min_velocity_speed_mps,0.25 m s^-1,Minimum recent speed for velocity-heading coherence
+position_score_denominator,5.0 + 12.0 = 17.0 m,"P_i = clip((d_i + 5) / 17, 0, 1)"
+position_score_weight,0.35,Base-score weight on P_i
+motion_time_step_cap,5.0 s,Cap for recent-motion feature time differences
+impossible_jump_clamp,8.0 m s^-1,Maximum displacement used in recent-motion features
+sticky_counter_increment_cap,5.0 s,Maximum frame gap added to sticky weak/challenger counters
+centroid_minimum_players,7,Minimum active players for centroid frame retention
+path_gap_split,"> 2.0 s",Downstream continuous path split threshold
+minimum_path_length,30 samples,Downstream active/centroid path retention threshold
+run_turning_threshold,30 deg,Directional-run segmentation threshold

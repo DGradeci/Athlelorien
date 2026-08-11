@@ -17,7 +17,7 @@ from typing import List, Optional
 import pandas as pd
 import s3fs
 
-from utils.player_utils import PlayerNameMapper
+from .player_utils import PlayerNameMapper
 
 
 # ---------------------------------------------------------

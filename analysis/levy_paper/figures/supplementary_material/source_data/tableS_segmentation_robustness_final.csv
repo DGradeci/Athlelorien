@@ -1,0 +1,5 @@
+segmentation_definition,number_of_runs,observed_terminations,censored_endings,median_duration_s,duration_p90_s,duration_p95_s,age_of_min_termination_probability_s,mean_termination_probability_age_ge_20,inverse_age_mu,inverse_age_a0_s
+Primary segmentation,69802.0,69670.0,132.0,2.0,13.0,19.0,18.5,0.1265676226249166,1.378364896318386,2.6637166822873075
+0.25 m s^-1 turn guard,47522.0,47390.0,132.0,3.0,19.0,29.0,30.5,0.0687841091591169,1.232462496021096,3.2709552101762776
+0.50 m s^-1 turn guard,31067.0,30935.0,132.0,4.0,32.0,47.0,26.5,0.0455819486972295,0.8835424328232633,2.5413413755894827
+Three-sample rolling median,67501.0,67369.0,132.0,2.0,13.0,19.0,18.5,0.1245564085888297,1.812031308647139,4.520572784655981

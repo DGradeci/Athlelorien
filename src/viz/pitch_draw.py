@@ -27,6 +27,10 @@ def draw_pitch(
     outer_fill_alpha: float = 0.4,
     # NEW: base pitch fill (useful when outer fill is on)
     pitch_fill_color: str = "white",
+    bench_zone_color: str = "red",
+    bench_zone_alpha: float = 0.5,
+    active_zone_color: str = "springgreen",
+    active_zone_alpha: float = 1.0,
 ) -> None:
     """
     Draw a football pitch from pitch_xy plus:
@@ -108,9 +112,9 @@ def draw_pitch(
                 (xmin, ymin),
                 pitch_width,
                 pitch_height,
-                facecolor="red",
+                facecolor=bench_zone_color,
                 edgecolor="none",
-                alpha=0.5,
+                alpha=bench_zone_alpha,
                 zorder=0.6,
             )
         )
@@ -126,9 +130,9 @@ def draw_pitch(
                     (inner_xmin, inner_ymin),
                     inner_xmax - inner_xmin,
                     inner_ymax - inner_ymin,
-                    facecolor="springgreen",
+                    facecolor=active_zone_color,
                     edgecolor="none",
-                    alpha=1,
+                    alpha=active_zone_alpha,
                     zorder=0.7,
                 )
             )

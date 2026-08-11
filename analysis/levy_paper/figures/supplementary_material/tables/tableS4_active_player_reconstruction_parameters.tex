@@ -1,0 +1,44 @@
+\begin{table}[tbp]
+\centering
+\caption{Frozen active-player reconstruction parameters recovered from the production code.}
+\label{tab:active-player-reconstruction-parameters}
+\begin{tabular}{lll}
+\hline
+Parameter or rule & Value & Role \\
+\hline
+\texttt{ACTIVE\_PLAYER\_METHOD} & \texttt{sticky\_hierarchical\_active\_xi} & Production active-player method \\
+\texttt{ACTIVE\_DEPTH\_M} & 6.0 m & Interior active-zone threshold, \(d_i\ge6\) \\
+\texttt{ACTIVATE\_S} & 70 s & Preliminary geometry bench-to-active persistence \\
+\texttt{BENCH\_OFF\_S} & 110 s & Preliminary geometry active-to-bench persistence \\
+\texttt{MAX\_ACTIVE\_PLAYERS} & 11 & Final selected active-set cap \\
+\texttt{on\_pitch\_eps\_m} & 0.1 m & On-pitch geometry threshold \\
+\texttt{likelihood\_window\_s} & 45.0 & Rolling recent-motion sample window \\
+\texttt{seed\_window\_s} & 120.0 s & Initial-XI seed window, inclusive at both ends \\
+\texttt{seed\_top\_n} & 11 & Number of initial seed players \\
+\texttt{position\_margin\_m} & 5.0 m & Soft outside-pitch candidate margin \\
+\texttt{coordinate\_sanity\_margin\_m} & 30.0 m & Hard outside-pitch coordinate sanity gate \\
+\texttt{replacement\_confirm\_s} & 35.0 s & Challenger persistence before replacement \\
+\texttt{weak\_confirm\_s} & 35.0 s & Weak selected-player persistence before replacement eligibility \\
+\texttt{switch\_margin} & 0.75 score units & Challenger base-score margin over weakest selected player \\
+\texttt{weak\_score\_threshold} & 1.6 score units & Base-score threshold for weak selected-player counter \\
+\texttt{seed\_bonus} & 0.35 & Base-score bonus for seed-XI membership \\
+\texttt{continuity\_bonus} & 2.50 & Hierarchical-score bonus for previous active membership \\
+\texttt{movement\_weight} & 0.10 & Weight on recent path length in metres \\
+\texttt{depth\_weight} & 0.025 & Weight on non-negative pitch depth in metres \\
+\texttt{geometry\_active\_bonus} & 0.25 & Base-score bonus for preliminary geometry-active state \\
+\texttt{in\_zone\_bonus} & 0.20 & Base-score bonus for \(d_i\ge6\) m \\
+\texttt{velocity\_coherence\_weight} & 1.50 & Base-score weight on velocity coherence \\
+\texttt{velocity\_top\_k} & 7 & Number of largest directional cosines used for coherence \\
+\texttt{min\_velocity\_speed\_mps} & 0.25 m s\(^{-1}\) & Minimum recent speed for velocity-heading coherence \\
+Position-score denominator & \(5.0+12.0=17.0\) m & \(P_i=\operatorname{clip}((d_i+5)/17,0,1)\) \\
+Position-score weight & 0.35 & Base-score weight on \(P_i\) \\
+Motion time-step cap & 5.0 s & Cap for recent-motion feature time differences \\
+Impossible-jump clamp & 8.0 m s\(^{-1}\) & Maximum displacement used in recent-motion features \\
+Sticky counter increment cap & 5.0 s & Maximum frame gap added to sticky weak/challenger counters \\
+Centroid minimum players & 7 & Minimum active players for centroid frame retention \\
+Path gap split & \(>2.0\) s & Downstream continuous path split threshold \\
+Minimum path length & 30 samples & Downstream active/centroid path retention threshold \\
+Run turning threshold & \(30^\circ\) & Directional-run segmentation threshold \\
+\hline
+\end{tabular}
+\end{table}

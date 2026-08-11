@@ -22,9 +22,10 @@ import time
 from pathlib import Path
 from typing import Dict, Any, Optional
 
-from config.arenas import ARENAS
-from utils.osm_client import OverpassClient
-from utils.pitch_finder import PitchFinder
+from src.config.arenas import ARENAS
+
+from .osm_client import OverpassClient
+from .pitch_finder import PitchFinder
 
 
 def fetch_all_pitches(
